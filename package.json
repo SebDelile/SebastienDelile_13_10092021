@@ -21,6 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "startAPI": "cd ../Project-10-Bank-API-master && npm run dev:server",
+    "populateAPI": "cd ../Project-10-Bank-API-master && npm run populate-db",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
