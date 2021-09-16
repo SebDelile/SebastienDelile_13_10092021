@@ -31,7 +31,8 @@ export const App = () => (
 );
 
 /**
- * The style for the App component
+ * Styled-tag container for the App.
+ * Contains rules for the flex organization of children : all are 100% wide and only main content is flex 1 (not header nor footer)
  * @memberof App
  */
 const Container = styled.div`
@@ -41,4 +42,12 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: stretch;
+
+  & > * {
+    width: 100%;
+  }
+
+  & > main {
+    flex: 1;
+  }
 `;
