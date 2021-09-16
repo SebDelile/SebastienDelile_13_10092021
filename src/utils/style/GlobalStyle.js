@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { COLORS } from './COLORS.js';
 
 export const GlobalStyle = createGlobalStyle`
 /* --------------------------------------------------
@@ -7,20 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #2c3e50;
-}
-
-/* --------------------------------------------------
---------------------- Variables ---------------------
--------------------------------------------------- */
-
-:root {
-  --main-padding-no-unit: 0.065;
-  --main-padding: calc(100% * var(--main-padding-no-unit));
-
-  @media only screen and (min-width: 90rem) {
-    --main-padding: calc((100% - 90rem * (1 - 2 * var(--main-padding-no-unit))) / 2);
-  }
+  color: ${COLORS.font};
 }
 
 /* --------------------------------------------------
@@ -51,6 +39,7 @@ button {
   border: inherit;
   cursor: pointer;
   font-size: inherit;
+  text-decoration: inherit;
 }
 
 /* --------------------------------------------------
