@@ -5,6 +5,7 @@ import { COLORS } from '../utils/style/COLORS.js';
 import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
 import { ProfileHeader } from '../components/ProfileHeader.jsx';
 import { Accounts } from '../components/Accounts.jsx';
+import { ACCOUNTS_DATA } from '../data/ACCOUNTS_DATA.js';
 
 const isAuthentified = false;
 
@@ -12,6 +13,7 @@ export const ProfilePage = () => {
   const [userProfileData, setUserProfileData] = useState({
     firstname: '',
     lastname: '',
+    accountsData: [],
     isLoading: true,
   });
   useEffect(
@@ -19,7 +21,8 @@ export const ProfilePage = () => {
       setUserProfileData({
         firstname: 'Jean-Eudes',
         lastname: 'Cornichon',
-        isLoading: true,
+        accountsData: ACCOUNTS_DATA,
+        isLoading: false,
       }),
     []
   );
@@ -28,12 +31,16 @@ export const ProfilePage = () => {
     <Redirect to="/login" />
   ) : (
     <Container>
-      <h1 className="sr-only">home page of Argent Bank web application</h1>
+      <h1 className="sr-only">Profile Page</h1>
       {userProfileData.isLoading ? (
         <LoadingSpinner color="white" size="150px" />
       ) : (
         <>
-          <ProfileHeader /> <Accounts />
+          <ProfileHeader
+            firstname={userProfileData.firstname}
+            lastname={userProfileData.lastname}
+          />
+          <Accounts accountsData={userProfileData.accountsData} />
         </>
       )}
     </Container>
