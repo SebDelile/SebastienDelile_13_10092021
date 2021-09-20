@@ -54,7 +54,7 @@ const CARDS_CONTENT = {
 };
 
 /**
- * Styled-tag main home page
+ * Styled-tag main for the home page container
  * @memberof HomePage
  */
 const Container = styled.main`

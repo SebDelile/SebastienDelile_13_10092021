@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
-import { COLORS } from '../utils/style/COLORS.js';
+import { colors } from '../utils/style/colors.js';
 import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
 import { ProfileHeader } from '../components/ProfileHeader.jsx';
 import { Accounts } from '../components/Accounts.jsx';
@@ -56,5 +56,5 @@ const Container = styled.main`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: ${COLORS.secondary};
+  background-color: ${colors.secondary};
 `;

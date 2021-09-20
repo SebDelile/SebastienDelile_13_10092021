@@ -5,8 +5,8 @@ import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 export const Accounts = ({ accountsData }) => (
   <Container>
     <h2 className="sr-only">List of accounts</h2>
-    {accountsData.map((accountData) => (
-      <Account>
+    {accountsData.map((accountData, index) => (
+      <Account key={index}>
         <AccountTitle>{accountData.title}</AccountTitle>
         <AccountAmount>{toUsCurrency(accountData.amount)}</AccountAmount>
         <AccountAmountDescription>

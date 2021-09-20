@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../utils/style/COLORS.js';
+import { colors } from '../utils/style/colors.js';
 
 export const CardGroup = ({ content }) => {
   const { cardArray, purpose } = content;
@@ -49,7 +49,7 @@ const Card = styled.article`
  */
 const CardImage = styled.img`
   width: 9.5rem;
-  border: 0.625rem solid ${COLORS.primary};
+  border: 0.625rem solid ${colors.primary};
   border-radius: 50%;
   padding: 1rem;
 `;
@@ -59,7 +59,7 @@ const CardImage = styled.img`
  * @memberof CardGroup
  */
 const CardTitle = styled.h3`
-  color: ${COLORS.veryDarkGrey};
+  color: ${colors.veryDarkGrey};
   font-size: 1.25rem;
   font-weight: 700;
   margin-top: 1em;

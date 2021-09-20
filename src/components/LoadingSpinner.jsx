@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { KEYFRAMES } from '../utils/style/KEYFRAMES.js';
+import { keyframes } from '../utils/style/keyframes.js';
 
 export const LoadingSpinner = ({ color, size }) => (
   <Container>
@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   height: ${(props) => props.size};
   animation: spin 7s infinite linear;
 
-  ${KEYFRAMES.spin}
+  ${keyframes.spin}
 `;
 
 /**
@@ -62,5 +62,5 @@ const Dot = styled.div`
     background-color: ${(props) => props.backgroundColor};
   }
 
-  ${KEYFRAMES.spin}
+  ${keyframes.spin}
 `;

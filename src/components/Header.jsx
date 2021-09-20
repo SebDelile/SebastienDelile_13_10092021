@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../assets/argentBankLogo.png';
-import { COLORS } from '../utils/style/COLORS.js';
+import { colors } from '../utils/style/colors.js';
 
 export const Header = () => {
-  const name = 'Jean-Eudes';
+  const name = null;
   return (
     <Container>
       <StyledNavLink exact to="/">
@@ -15,12 +15,12 @@ export const Header = () => {
           <MenuList>
             <MenuListItem>
               <StyledNavLink to="/profile">
-                <i className="fa fa-user-circle"></i> {name}
+                <i className="fa fa-user-circle" aria-hidden={true}></i> {name}
               </StyledNavLink>
             </MenuListItem>
             <MenuListItem>
               <MenuButton>
-                <i className="fa fa-sign-out"></i> Sign out
+                <i className="fa fa-sign-out" aria-hidden={true}></i> Sign out
               </MenuButton>
             </MenuListItem>
           </MenuList>
@@ -28,7 +28,7 @@ export const Header = () => {
           <MenuList>
             <MenuListItem>
               <StyledNavLink to="/login">
-                <i className="fa fa-user-circle"></i> Sign In
+                <i className="fa fa-user-circle" aria-hidden={true}></i> Sign In
               </StyledNavLink>
             </MenuListItem>
           </MenuList>
@@ -56,7 +56,7 @@ const Container = styled.header`
 const StyledNavLink = styled(NavLink)`
   &.active,
   &.active > * {
-    color: ${COLORS.activeNavLink};
+    color: ${colors.activeNavLink};
   }
 `;
 

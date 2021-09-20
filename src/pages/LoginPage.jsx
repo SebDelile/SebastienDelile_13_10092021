@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
-import { COLORS } from '../utils/style/COLORS.js';
+import { colors } from '../utils/style/colors.js';
+import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 
 const name = null;
 
@@ -85,7 +86,7 @@ const Container = styled.main`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  background-color: ${COLORS.secondary};
+  background-color: ${colors.secondary};
 `;
 
 /**
@@ -169,11 +170,7 @@ const WrapperCheckbox = styled.div`
  * @memberof LoginPage
  */
 const ButtonSubmit = styled.button`
+  ${mainButtonStyle}
+
   width: 100%;
-  padding: 0.5rem;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  background-color: ${COLORS.primary};
-  color: white;
 `;

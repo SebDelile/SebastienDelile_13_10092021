@@ -1,4 +1,4 @@
-export const COLORS = {
+export const colors = {
   primary: '#00bc77',
   secondary: '#12002b',
   activeNavLink: '#42b983',

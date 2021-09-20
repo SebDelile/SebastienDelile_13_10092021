@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import { COLORS } from './COLORS.js';
+import { colors } from './colors.js';
 
 export const GlobalStyle = createGlobalStyle`
 /* --------------------------------------------------
@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
 
 * {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: ${COLORS.font};
+  color: ${colors.font};
 }
 
 /* --------------------------------------------------
