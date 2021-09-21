@@ -3,11 +3,14 @@ import ReactDOM from 'react-dom';
 import { App } from './app/App.jsx';
 import { GlobalStyle } from './utils/style/GlobalStyle.js';
 import reportWebVitals from './utils/reportWebVitals.js';
+import { UserDataProvider } from './utils/contexts/UserDataContext.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <App />
+    <UserDataProvider>
+      <GlobalStyle />
+      <App />
+    </UserDataProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
+import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { colors } from '../utils/style/colors.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
-
-const name = null;
+import { USER_DATA } from '../data/USER_DATA.js';
 
 export const LoginPage = () => {
   const [creditential, setCreditential] = useState({
@@ -14,6 +14,7 @@ export const LoginPage = () => {
     remember: false,
   });
   let history = useHistory();
+  const { userData, updateUserData } = useContext(UserDataContext);
 
   const handleInputChange = (event) => {
     const { name, type, checked, value } = event.target;
@@ -25,10 +26,25 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    history.push('/profile');
+    const index = USER_DATA.findIndex(
+      (user) =>
+        user.email === creditential.username &&
+        user.password === creditential.password
+    );
+    if (index === -1) {
+      alert('Authentification failed, username and/or password is incorrect');
+      return;
+    } else {
+      updateUserData({
+        isAuthentified: true,
+        firstName: USER_DATA[index].firstName,
+        lastName: USER_DATA[index].lastName,
+      });
+      history.push('/profile');
+    }
   };
 
-  return name ? (
+  return userData.isAuthentified ? (
     <Redirect to="/profile" />
   ) : (
     <Container>

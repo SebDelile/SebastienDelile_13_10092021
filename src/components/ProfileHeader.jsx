@@ -1,17 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import styled from 'styled-components';
+import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 
-export const ProfileHeader = ({ firstname, lastname }) => {
+export const ProfileHeader = ({ firstName, lastName }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputingName, setInputingName] = useState({
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
   });
-  const [actualName, setActualName] = useState({
-    firstname: firstname,
-    lastname: lastname,
-  });
+  const { userData, updateUserData } = useContext(UserDataContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,16 +25,16 @@ export const ProfileHeader = ({ firstname, lastname }) => {
 
   const handleSaveButton = (e) => {
     e.preventDefault();
-    setActualName({
-      firstname: inputingName.firstname,
-      lastname: inputingName.lastname,
+    updateUserData({
+      firstName: inputingName.firstName,
+      lastName: inputingName.lastName,
     });
-    setInputingName({ firstname: '', lastname: '' });
+    setInputingName({ firstName: '', lastName: '' });
     setIsEditing(false);
   };
 
   const handleCancelButton = () => {
-    setInputingName({ firstname: '', lastname: '' });
+    setInputingName({ firstName: '', lastName: '' });
     setIsEditing(false);
   };
 
@@ -47,15 +45,15 @@ export const ProfileHeader = ({ firstname, lastname }) => {
         <EditingNameWrapper>
           <InputName
             type="text"
-            name="firstname"
-            placeholder={actualName.firstname}
+            name="firstName"
+            placeholder={userData.firstName}
             value={inputingName.firstName}
             onChange={handleInputChange}
           />
           <InputName
             type="text"
-            name="lastname"
-            placeholder={actualName.lastname}
+            name="lastName"
+            placeholder={userData.lastName}
             value={inputingName.lastName}
             onChange={handleInputChange}
           />
@@ -69,7 +67,7 @@ export const ProfileHeader = ({ firstname, lastname }) => {
       ) : (
         <DisplayNameWrapper>
           <Greetings>
-            {actualName.firstname} {actualName.lastname}
+            {userData.firstName} {userData.lastName}
           </Greetings>
           <EditNameButton type="button" onClick={handleEditButton}>
             Edit

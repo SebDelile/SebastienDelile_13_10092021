@@ -1,25 +1,35 @@
-import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
+import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import logo from '../assets/argentBankLogo.png';
 import { colors } from '../utils/style/colors.js';
 
 export const Header = () => {
-  const name = null;
+  const { userData, resetUserData } = useContext(UserDataContext);
+  let history = useHistory();
+
+  const handleSignout = () => {
+    resetUserData();
+    history.push('/');
+  };
+
   return (
     <Container>
       <StyledNavLink exact to="/">
         <Logo src={logo} />
       </StyledNavLink>
       <Menu>
-        {name ? (
+        {userData.isAuthentified ? (
           <MenuList>
             <MenuListItem>
               <StyledNavLink to="/profile">
-                <i className="fa fa-user-circle" aria-hidden={true}></i> {name}
+                <i className="fa fa-user-circle" aria-hidden={true}></i>{' '}
+                {userData.firstName}
               </StyledNavLink>
             </MenuListItem>
             <MenuListItem>
-              <MenuButton>
+              <MenuButton onClick={handleSignout}>
                 <i className="fa fa-sign-out" aria-hidden={true}></i> Sign out
               </MenuButton>
             </MenuListItem>
