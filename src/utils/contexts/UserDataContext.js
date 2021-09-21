@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 
 export const UserDataContext = createContext();
 
@@ -12,10 +12,13 @@ export const UserDataProvider = ({ children }) => {
 
   const [userData, setUserData] = useState(initialUserData);
 
-  const updateUserData = (newState) =>
+  const updateUserData = useCallback((newState) => {
     setUserData((prevState) => ({ ...prevState, ...newState }));
+  }, []);
 
-  const resetUserData = () => setUserData(initialUserData);
+  const resetUserData = () => {
+    setUserData(initialUserData);
+  };
 
   return (
     <UserDataContext.Provider
