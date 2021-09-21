@@ -47,13 +47,13 @@ export const LoginPage = () => {
   return userData.isAuthentified ? (
     <Redirect to="/profile" />
   ) : (
-    <Container>
+    <ComponentWrapper>
       <Form>
         <Icon aria-hidden={true}>
           <i className="fa fa-user-circle"></i>
         </Icon>
         <Title>Sign In</Title>
-        <WrapperInput>
+        <InputWrapper>
           <label htmlFor="username">Username</label>
           <input
             type="text"
@@ -63,8 +63,8 @@ export const LoginPage = () => {
             value={creditential.username}
             onChange={handleInputChange}
           />
-        </WrapperInput>
-        <WrapperInput>
+        </InputWrapper>
+        <InputWrapper>
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -74,8 +74,8 @@ export const LoginPage = () => {
             value={creditential.password}
             onChange={handleInputChange}
           />
-        </WrapperInput>
-        <WrapperCheckbox>
+        </InputWrapper>
+        <CheckboxWrapper>
           <input
             type="checkbox"
             id="remember"
@@ -84,20 +84,20 @@ export const LoginPage = () => {
             onChange={handleInputChange}
           />
           <label htmlFor="remember">Remember me</label>
-        </WrapperCheckbox>
+        </CheckboxWrapper>
         <ButtonSubmit type="submit" onClick={handleSubmit}>
           Sign In
         </ButtonSubmit>
       </Form>
-    </Container>
+    </ComponentWrapper>
   );
 };
 
 /**
- * Styled-tag main for the Login page container
+ * Styled-tag main for the Login page ComponentWrapper
  * @memberof LoginPage
  */
-const Container = styled.main`
+const ComponentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -142,7 +142,7 @@ const Title = styled.h1`
  * Styled-tag form for the wrapper of the input text of the Login page
  * @memberof LoginPage
  */
-const WrapperInput = styled.div`
+const InputWrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -164,7 +164,7 @@ const WrapperInput = styled.div`
  * Styled-tag form for the wrapper of the input checkbox of the Login page
  * @memberof LoginPage
  */
-const WrapperCheckbox = styled.div`
+const CheckboxWrapper = styled.div`
   display: flex;
   width: 100%;
   flex-direction: row;

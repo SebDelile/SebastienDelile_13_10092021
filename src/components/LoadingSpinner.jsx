@@ -2,21 +2,21 @@ import styled from 'styled-components';
 import { keyframes } from '../utils/style/keyframes.js';
 
 export const LoadingSpinner = ({ color, size }) => (
-  <Container>
+  <ComponentWrapper>
     <p className="sr-only">Please wait a moment</p>
-    <Wrapper size={size}>
+    <DotWrapper size={size}>
       {Array.from({ length: 6 }).map((_, i) => (
         <Dot key={i} delay={i} backgroundColor={color} />
       ))}
-    </Wrapper>
-  </Container>
+    </DotWrapper>
+  </ComponentWrapper>
 );
 
 /**
- * Styled-tag div for the LoadingSpinner container
+ * Styled-tag div for the LoadingSpinner ComponentWrapper
  * @memberof LoadingSpinner
  */
-const Container = styled.div`
+const ComponentWrapper = styled.div`
   width: 100%;
   flex: 1;
   position: relative;
@@ -27,10 +27,10 @@ const Container = styled.div`
 `;
 
 /**
- * Styled-tag div for the wrapper of the dots
+ * Styled-tag div for the DotWrapper of the dots
  * @memberof LoadingSpinner
  */
-const Wrapper = styled.div`
+const DotWrapper = styled.div`
   position: relative;
   width: ${(props) => props.size};
   height: ${(props) => props.size};

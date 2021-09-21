@@ -3,20 +3,20 @@ import errorLogo from '../assets/error-logo-alt.png';
 
 export const LoadingErrorDisplay = ({ color }) => {
   return (
-    <Container>
+    <ComponentWrapper>
       <Image src={errorLogo} alt="Error logo" />
       <Title color={color}>
         Sorry, the data you requested are unavailable, please try again later.
       </Title>
-    </Container>
+    </ComponentWrapper>
   );
 };
 
 /**
- * The style for the Container part of the LoadingErrorDisplay component
+ * The style for the ComponentWrapper part of the LoadingErrorDisplay component
  * @memberof LoadingErrorDisplay
  */
-const Container = styled.div`
+const ComponentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

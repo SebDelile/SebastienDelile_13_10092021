@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import errorLogo from '../assets/error-logo.png';
 
 export const ErrorPage = () => (
-  <Container>
+  <ComponentWrapper>
     <Image src={errorLogo} alt="Error logo" />
     <Title>Oops ! Something went wrong...</Title>
     <Message>
@@ -11,14 +11,14 @@ export const ErrorPage = () => (
       time.
     </Message>
     <StyledLink to="/">Go back to the home page</StyledLink>
-  </Container>
+  </ComponentWrapper>
 );
 
 /**
- * Styled-tag main for the Error page container
+ * Styled-tag main for the Error page ComponentWrapper
  * @memberof ErrorPage
  */
-const Container = styled.main`
+const ComponentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

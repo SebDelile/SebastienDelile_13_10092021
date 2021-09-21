@@ -3,13 +3,13 @@ import styled from 'styled-components';
 export const Hero = ({ content }) => {
   const { backgroundImage, title, text, purpose } = content;
   return (
-    <Container backgroundImage={backgroundImage}>
+    <ComponentWrapper backgroundImage={backgroundImage}>
       <h2 className="sr-only">{purpose}</h2>
       <HeroContent>
         <HeroTitle>{title}</HeroTitle>
         <HeroText>{text}</HeroText>
       </HeroContent>
-    </Container>
+    </ComponentWrapper>
   );
 };
 
@@ -17,7 +17,7 @@ export const Hero = ({ content }) => {
  * Styled-tag section to wrap the hero
  * @memberof Hero
  */
-const Container = styled.section`
+const ComponentWrapper = styled.section`
   background-image: url(${(props) => props.backgroundImage});
   background-position: 0 -4.125rem;
   background-size: cover;

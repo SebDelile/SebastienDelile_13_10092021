@@ -15,11 +15,11 @@ export const Header = () => {
   };
 
   return (
-    <Container>
+    <ComponentWrapper>
       <StyledNavLink exact to="/">
         <Logo src={logo} />
       </StyledNavLink>
-      <Menu>
+      <nav>
         {userData.isAuthentified ? (
           <MenuList>
             <MenuListItem>
@@ -29,9 +29,9 @@ export const Header = () => {
               </StyledNavLink>
             </MenuListItem>
             <MenuListItem>
-              <MenuButton onClick={handleSignout}>
+              <button type="button" onClick={handleSignout}>
                 <i className="fa fa-sign-out" aria-hidden={true}></i> Sign out
-              </MenuButton>
+              </button>
             </MenuListItem>
           </MenuList>
         ) : (
@@ -43,8 +43,8 @@ export const Header = () => {
             </MenuListItem>
           </MenuList>
         )}
-      </Menu>
-    </Container>
+      </nav>
+    </ComponentWrapper>
   );
 };
 
@@ -52,7 +52,7 @@ export const Header = () => {
  * Styled-tag header to wrap header content
  * @memberof Header
  */
-const Container = styled.header`
+const ComponentWrapper = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -80,12 +80,6 @@ const Logo = styled.img`
 `;
 
 /**
- * Styled-tag nav
- * @memberof Header
- */
-const Menu = styled.nav``;
-
-/**
  * Styled-tag ul for the navigation menu list
  * @memberof Header
  */
@@ -106,9 +100,3 @@ const MenuListItem = styled.li`
     text-decoration: underline;
   }
 `;
-
-/**
- * Styled-tag button for the signout button
- * @memberof Header
- */
-const MenuButton = styled.button``;

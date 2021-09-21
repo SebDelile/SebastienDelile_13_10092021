@@ -10,24 +10,24 @@ export const ProfilePage = () => {
   const { userData } = useContext(UserDataContext);
 
   return userData.isAuthentified ? (
-    <Container>
+    <ComponentWrapper>
       <h1 className="sr-only">Profile Page</h1>
       <ProfileHeader
         firstName={userData.firstName}
         lastName={userData.lastName}
       />
       <Accounts accountsData={userData.accountsData} />
-    </Container>
+    </ComponentWrapper>
   ) : (
     <Redirect to="/login" />
   );
 };
 
 /**
- * Styled-tag main for the Profile page container
+ * Styled-tag main for the Profile page ComponentWrapper
  * @memberof ProfilePage
  */
-const Container = styled.main`
+const ComponentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

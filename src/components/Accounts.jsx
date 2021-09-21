@@ -30,7 +30,7 @@ export const Accounts = () => {
   }, [updateUserData]);
 
   return (
-    <Container>
+    <ComponentWrapper>
       <h2 className="sr-only">List of accounts</h2>
       {isLoading ? (
         <LoadingSpinner color="white" size="150px" />
@@ -48,15 +48,15 @@ export const Accounts = () => {
           </Account>
         ))
       )}
-    </Container>
+    </ComponentWrapper>
   );
 };
 
 /**
- * Styled-tag section for the Accounts container
+ * Styled-tag section for the Accounts ComponentWrapper
  * @memberof Accounts
  */
-const Container = styled.section`
+const ComponentWrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;

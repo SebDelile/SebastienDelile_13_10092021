@@ -39,7 +39,7 @@ export const ProfileHeader = ({ firstName, lastName }) => {
   };
 
   return (
-    <Container>
+    <ComponentWrapper>
       <Greetings>Welcome back</Greetings>
       {isEditing ? (
         <EditingNameWrapper>
@@ -65,24 +65,24 @@ export const ProfileHeader = ({ firstName, lastName }) => {
           </EditNameButton>
         </EditingNameWrapper>
       ) : (
-        <DisplayNameWrapper>
+        <DisplayedNameWrapper>
           <Greetings>
             {userData.firstName} {userData.lastName}
           </Greetings>
           <EditNameButton type="button" onClick={handleEditButton}>
             Edit
           </EditNameButton>
-        </DisplayNameWrapper>
+        </DisplayedNameWrapper>
       )}
-    </Container>
+    </ComponentWrapper>
   );
 };
 
 /**
- * Styled-tag section for the ProfileHeader container
+ * Styled-tag section for the ProfileHeader ComponentWrapper
  * @memberof ProfileHeader
  */
-const Container = styled.section`
+const ComponentWrapper = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -105,7 +105,7 @@ const Greetings = styled.h2`
  * Styled-tag div for the ProfileHeader Wrapper when displaying name
  * @memberof ProfileHeader
  */
-const DisplayNameWrapper = styled.div`
+const DisplayedNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

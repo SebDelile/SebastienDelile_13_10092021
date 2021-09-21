@@ -7,11 +7,11 @@ import iconMoney from '../assets/icon-money.png';
 import iconSecurity from '../assets/icon-security.png';
 
 export const HomePage = () => (
-  <Container>
+  <ComponentWrapper>
     <h1 className="sr-only">home page of Argent Bank web application</h1>
     <Hero content={HERO_CONTENT} />
     <CardGroup content={CARDS_CONTENT} />
-  </Container>
+  </ComponentWrapper>
 );
 
 /**
@@ -54,10 +54,10 @@ const CARDS_CONTENT = {
 };
 
 /**
- * Styled-tag main for the home page container
+ * Styled-tag main for the home page ComponentWrapper
  * @memberof HomePage
  */
-const Container = styled.main`
+const ComponentWrapper = styled.main`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

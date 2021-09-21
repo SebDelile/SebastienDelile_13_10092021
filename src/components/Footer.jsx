@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
 export const Footer = () => (
-  <Container>
+  <ComponentWrapper>
     <Disclaimer>Copyright 2020 Argent Bank</Disclaimer>
-  </Container>
+  </ComponentWrapper>
 );
 
 /**
  * Styled-tag footer to wrap footer content
  * @memberof Footer
  */
-const Container = styled.footer`
+const ComponentWrapper = styled.footer`
   display: flex;
   justify-content: center;
   align-items: center;

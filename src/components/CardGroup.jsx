@@ -4,7 +4,7 @@ import { colors } from '../utils/style/colors.js';
 export const CardGroup = ({ content }) => {
   const { cardArray, purpose } = content;
   return (
-    <Container>
+    <ComponentWrapper>
       <h2 className="sr-only">{purpose}</h2>
       {cardArray.map((card, index) => (
         <Card key={index}>
@@ -13,7 +13,7 @@ export const CardGroup = ({ content }) => {
           <CardText>{card.text}</CardText>
         </Card>
       ))}
-    </Container>
+    </ComponentWrapper>
   );
 };
 
@@ -21,7 +21,7 @@ export const CardGroup = ({ content }) => {
  * Styled-tag section to wrap the Card's group
  * @memberof CardGroup
  */
-const Container = styled.section`
+const ComponentWrapper = styled.section`
   display: flex;
   flex-direction: column;
 

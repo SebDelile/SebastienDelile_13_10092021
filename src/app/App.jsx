@@ -8,7 +8,7 @@ import { ProfilePage } from '../pages/ProfilePage.jsx';
 import { ErrorPage } from '../pages/ErrorPage.jsx';
 
 export const App = () => (
-  <Container>
+  <ComponentWrapper>
     <BrowserRouter>
       <Header />
       <Switch>
@@ -27,15 +27,15 @@ export const App = () => (
       </Switch>
       <Footer />
     </BrowserRouter>
-  </Container>
+  </ComponentWrapper>
 );
 
 /**
- * Styled-tag container for the App.
+ * Styled-tag ComponentWrapper for the App.
  * Contains rules for the flex organization of children : all are 100% wide and only main content is flex 1 (not header nor footer)
  * @memberof App
  */
-const Container = styled.div`
+const ComponentWrapper = styled.div`
   width: 100%;
   min-height: 100%;
   display: flex;
