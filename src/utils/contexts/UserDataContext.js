@@ -1,23 +1,29 @@
-import { createContext, useCallback, useState } from 'react';
+import { createContext, useCallback, useState, useEffect } from 'react';
 
 export const UserDataContext = createContext();
 
 export const UserDataProvider = ({ children }) => {
-  const initialUserData = {
+  const defaultUserData = {
     isAuthentified: false,
     firstName: '',
     lastName: '',
     accountsData: [],
   };
 
-  const [userData, setUserData] = useState(initialUserData);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem('userData')) ?? defaultUserData
+  );
+
+  useEffect(() => {
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }, [userData]);
 
   const updateUserData = useCallback((newState) => {
     setUserData((prevState) => ({ ...prevState, ...newState }));
   }, []);
 
   const resetUserData = () => {
-    setUserData(initialUserData);
+    setUserData(defaultUserData);
   };
 
   return (
