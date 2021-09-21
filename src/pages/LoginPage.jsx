@@ -26,19 +26,19 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const index = USER_DATA.findIndex(
+    const extractedUserData = USER_DATA.find(
       (user) =>
         user.email === creditential.username &&
         user.password === creditential.password
     );
-    if (index === -1) {
+    if (!extractedUserData) {
       alert('Authentification failed, username and/or password is incorrect');
       return;
     } else {
       updateUserData({
         isAuthentified: true,
-        firstName: USER_DATA[index].firstName,
-        lastName: USER_DATA[index].lastName,
+        firstName: extractedUserData.firstName,
+        lastName: extractedUserData.lastName,
       });
       history.push('/profile');
     }
