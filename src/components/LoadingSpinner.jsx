@@ -56,6 +56,8 @@ const Dot = styled.div`
     transform: translate(-50%);
     content: '';
     display: block;
+    min-width: 0.1875rem;
+    min-height: 0.1875rem;
     width: 10%;
     height: 10%;
     border-radius: 50%;

@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import styled from 'styled-components';
+import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
 import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { colors } from '../utils/style/colors.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
-import { USER_DATA } from '../data/USER_DATA.js';
+import { apiRequest } from '../utils/services/apiRequest.js';
 
 export const LoginPage = () => {
   const [creditential, setCreditential] = useState({
@@ -13,7 +13,8 @@ export const LoginPage = () => {
     password: '',
     remember: false,
   });
-  let history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const { userData, updateUserData } = useContext(UserDataContext);
 
   const handleInputChange = (event) => {
@@ -24,23 +25,44 @@ export const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const extractedUserData = USER_DATA.find(
-      (user) =>
-        user.email === creditential.username &&
-        user.password === creditential.password
-    );
-    if (!extractedUserData) {
-      alert('Authentification failed, username and/or password is incorrect');
-      return;
+    setIsLoading(true);
+    setError('');
+
+    const loginRequest = await apiRequest({
+      type: 'post',
+      endPoint: '/user/login',
+      body: {
+        email: creditential.username,
+        password: creditential.password,
+      },
+    });
+
+    if (loginRequest.rejected) {
+      handleSubmitError(loginRequest.rejected.status);
     } else {
       updateUserData({
         isAuthentified: true,
-        firstName: extractedUserData.firstName,
-        lastName: extractedUserData.lastName,
+        token: loginRequest.resolved.data.body.token,
+        remember: creditential.remember,
       });
-      history.push('/profile');
+    }
+    setIsLoading(false);
+  };
+
+  const handleSubmitError = (status) => {
+    switch (status) {
+      case 400:
+        setError(
+          'Username and/or password is invalid, please check your inputs and try again.'
+        );
+        break;
+      case 404:
+        setError('Wrong request, please contact the app administrator.');
+        break;
+      default:
+        setError('Server is unreachable, please try again later.');
     }
   };
 
@@ -86,8 +108,9 @@ export const LoginPage = () => {
           <label htmlFor="remember">Remember me</label>
         </CheckboxWrapper>
         <ButtonSubmit type="submit" onClick={handleSubmit}>
-          Sign In
+          {isLoading ? <LoadingSpinner color="white" size="1em" /> : 'Sign In'}
         </ButtonSubmit>
+        {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Form>
     </ComponentWrapper>
   );
@@ -121,7 +144,7 @@ const Form = styled.form`
 `;
 
 /**
- * Styled-tag form for the icon of the Login page
+ * Styled-tag p for the icon of the Login page
  * @memberof LoginPage
  */
 const Icon = styled.p`
@@ -129,7 +152,7 @@ const Icon = styled.p`
 `;
 
 /**
- * Styled-tag form for the title of the Login page
+ * Styled-tag h1 for the title of the Login page
  * @memberof LoginPage
  */
 const Title = styled.h1`
@@ -139,7 +162,7 @@ const Title = styled.h1`
 `;
 
 /**
- * Styled-tag form for the wrapper of the input text of the Login page
+ * Styled-tag div for the wrapper of the input text of the Login page
  * @memberof LoginPage
  */
 const InputWrapper = styled.div`
@@ -161,7 +184,7 @@ const InputWrapper = styled.div`
 `;
 
 /**
- * Styled-tag form for the wrapper of the input checkbox of the Login page
+ * Styled-tag div for the wrapper of the input checkbox of the Login page
  * @memberof LoginPage
  */
 const CheckboxWrapper = styled.div`
@@ -182,11 +205,21 @@ const CheckboxWrapper = styled.div`
 `;
 
 /**
- * Styled-tag form for the submit button of the Login page
+ * Styled-tag button for the submit button of the Login page
  * @memberof LoginPage
  */
 const ButtonSubmit = styled.button`
   ${mainButtonStyle}
 
   width: 100%;
+`;
+
+/**
+ * Styled-tag p for the error message of the Login page
+ * @memberof LoginPage
+ */
+const ErrorMessage = styled.p`
+  font-size: 1rem;
+  color: red;
+  margin-top: 1rem;
 `;
