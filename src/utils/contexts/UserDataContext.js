@@ -6,18 +6,24 @@ export const UserDataProvider = ({ children }) => {
   const defaultUserData = {
     isAuthentified: false,
     token: '',
-    remember: false,
+    remember: undefined,
     firstName: '',
     lastName: '',
     accountsData: [],
   };
 
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem('userData')) ?? defaultUserData
-  );
+  const [userData, setUserData] = useState(prevStorage() ?? defaultUserData);
 
   useEffect(() => {
-    localStorage.setItem('userData', JSON.stringify(userData));
+    if (userData.remember === undefined) {
+      //happen on logout or if both local and session storages are empty
+      sessionStorage.clear();
+      localStorage.clear();
+    } else {
+      const storage = userData.remember ? localStorage : sessionStorage;
+      storage.setItem('userData', JSON.stringify(userData));
+      storage.setItem('lastUpdate', Date.now().toString());
+    }
   }, [userData]);
 
   const updateUserData = useCallback((newState) => {
@@ -35,4 +41,12 @@ export const UserDataProvider = ({ children }) => {
       {children}
     </UserDataContext.Provider>
   );
+};
+
+const prevStorage = () => {
+  const session = parseInt(JSON.parse(sessionStorage.getItem('lastUpdate')));
+  const local = parseInt(JSON.parse(localStorage.getItem('lastUpdate')));
+  if (!session && !local) return null;
+  else if (local > session) return JSON.parse(localStorage.getItem('userData'));
+  else return JSON.parse(sessionStorage.getItem('userData'));
 };
