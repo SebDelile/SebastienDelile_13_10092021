@@ -1,15 +1,39 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { LoadingErrorDisplay } from './LoadingErrorDisplay.jsx';
+import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
 import { UserDataContext } from '../utils/contexts/UserDataContext.js';
+import { apiRequest } from '../utils/services/apiRequest.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 
-export const ProfileHeader = ({ firstName, lastName }) => {
+export const ProfileHeader = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingError, setIsLoadingError] = useState(false);
+  const [isUpdatingError, setIsUpdatingError] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [inputingName, setInputingName] = useState({
     firstName: '',
     lastName: '',
   });
   const { userData, updateUserData } = useContext(UserDataContext);
+
+  useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const dataRequest = await apiRequest({
+        type: 'post',
+        endPoint: '/user/profile',
+        token: userData.token,
+      });
+      if (dataRequest.rejected) setIsLoadingError(true);
+      else
+        updateUserData({
+          firstName: dataRequest.resolved.data.body.firstName,
+          lastName: dataRequest.resolved.data.body.lastName,
+        });
+      setIsLoading(false);
+    })();
+  }, [updateUserData, userData.token]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,21 +43,39 @@ export const ProfileHeader = ({ firstName, lastName }) => {
     }));
   };
 
-  const handleEditButton = () => {
+  const handleEditName = () => {
+    setIsUpdatingError(false);
     setIsEditing(true);
   };
 
-  const handleSaveButton = (e) => {
+  const handleSaveName = async (e) => {
     e.preventDefault();
-    updateUserData({
-      firstName: inputingName.firstName,
-      lastName: inputingName.lastName,
+    setIsLoading(true);
+
+    const updateRequest = await apiRequest({
+      type: 'put',
+      endPoint: '/user/profile',
+      token: userData.token,
+      body: {
+        firstName: inputingName.firstName,
+        lastName: inputingName.lastName,
+      },
     });
-    setInputingName({ firstName: '', lastName: '' });
-    setIsEditing(false);
+    if (updateRequest.rejected) {
+      setIsUpdatingError(true);
+      setIsLoading(false);
+    } else {
+      updateUserData({
+        firstName: updateRequest.resolved.data.body.firstName,
+        lastName: updateRequest.resolved.data.body.lastName,
+      });
+      setInputingName({ firstName: '', lastName: '' });
+      setIsEditing(false);
+      setIsLoading(false);
+    }
   };
 
-  const handleCancelButton = () => {
+  const handleCancelEditName = () => {
     setInputingName({ firstName: '', lastName: '' });
     setIsEditing(false);
   };
@@ -41,38 +83,51 @@ export const ProfileHeader = ({ firstName, lastName }) => {
   return (
     <ComponentWrapper>
       <Greetings>Welcome back</Greetings>
-      {isEditing ? (
-        <EditingNameWrapper>
-          <InputName
-            type="text"
-            name="firstName"
-            placeholder={userData.firstName}
-            value={inputingName.firstName}
-            onChange={handleInputChange}
-          />
-          <InputName
-            type="text"
-            name="lastName"
-            placeholder={userData.lastName}
-            value={inputingName.lastName}
-            onChange={handleInputChange}
-          />
-          <EditNameButton type="submit" onClick={handleSaveButton}>
-            Save
-          </EditNameButton>
-          <EditNameButton type="button" onClick={handleCancelButton}>
-            Cancel
-          </EditNameButton>
-        </EditingNameWrapper>
+      {isLoading ? (
+        <LoadingSpinner color="white" size="50px" />
+      ) : isLoadingError ? (
+        <LoadingErrorDisplay color="white" />
       ) : (
-        <DisplayedNameWrapper>
-          <Greetings>
-            {userData.firstName} {userData.lastName}
-          </Greetings>
-          <EditNameButton type="button" onClick={handleEditButton}>
-            Edit
-          </EditNameButton>
-        </DisplayedNameWrapper>
+        <>
+          {isEditing ? (
+            <EditingNameWrapper>
+              <InputName
+                type="text"
+                name="firstName"
+                placeholder={userData.firstName}
+                value={inputingName.firstName}
+                onChange={handleInputChange}
+              />
+              <InputName
+                type="text"
+                name="lastName"
+                placeholder={userData.lastName}
+                value={inputingName.lastName}
+                onChange={handleInputChange}
+              />
+              <EditNameButton type="submit" onClick={handleSaveName}>
+                Save
+              </EditNameButton>
+              <EditNameButton type="button" onClick={handleCancelEditName}>
+                Cancel
+              </EditNameButton>
+              {isUpdatingError ? (
+                <EditNameErrorMessage>
+                  Updating has failed, please try again later.
+                </EditNameErrorMessage>
+              ) : null}
+            </EditingNameWrapper>
+          ) : (
+            <DisplayedNameWrapper>
+              <Greetings>
+                {userData.firstName} {userData.lastName}
+              </Greetings>
+              <EditNameButton type="button" onClick={handleEditName}>
+                Edit
+              </EditNameButton>
+            </DisplayedNameWrapper>
+          )}
+        </>
       )}
     </ComponentWrapper>
   );
@@ -120,12 +175,10 @@ const DisplayedNameWrapper = styled.div`
 const EditingNameWrapper = styled.form`
   display: grid;
   gap: 0.5rem 1rem;
-  grid-template-rows: repeat(3, auto);
   grid-template-columns: repeat(2, 1fr);
   margin-top: 1.5rem;
 
   @media only screen and (min-width: 45rem) {
-    grid-template-rows: repeat(2, auto);
   }
 `;
 
@@ -169,4 +222,15 @@ const EditNameButton = styled.button`
       justify-self: left;
     }
   }
+`;
+
+/**
+ * Styled-tag p for the ProfileHeader edit name error
+ * @memberof ProfileHeader
+ */
+const EditNameErrorMessage = styled.p`
+  font-size: 1rem;
+  color: red;
+  grid-column: span 2;
+  justify-self: center;
 `;
