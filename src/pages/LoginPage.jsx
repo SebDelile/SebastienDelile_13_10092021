@@ -41,14 +41,15 @@ export const LoginPage = () => {
 
     if (loginRequest.rejected) {
       handleSubmitError(loginRequest.rejected.status);
+      setIsLoading(false);
     } else {
       updateUserData({
         isAuthentified: true,
         token: loginRequest.resolved.data.body.token,
         remember: creditential.remember,
       });
+      //isAuthentified update will trigger the redirect to ProfilePage;
     }
-    setIsLoading(false);
   };
 
   const handleSubmitError = (status) => {
