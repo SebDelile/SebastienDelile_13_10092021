@@ -12,10 +12,7 @@ export const ProfilePage = () => {
   return userData.isAuthentified ? (
     <ComponentWrapper>
       <h1 className="sr-only">Profile Page</h1>
-      <ProfileHeader
-        firstName={userData.firstName}
-        lastName={userData.lastName}
-      />
+      <ProfileHeader />
       <Accounts accountsData={userData.accountsData} />
     </ComponentWrapper>
   ) : (
