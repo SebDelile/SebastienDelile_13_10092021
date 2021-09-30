@@ -4,7 +4,7 @@ export const UserDataContext = createContext();
 
 export const UserDataProvider = ({ children }) => {
   const defaultUserData = {
-    isAuthentified: false,
+    isAuthenticated: false,
     token: '',
     remember: undefined,
     firstName: '',

@@ -20,7 +20,7 @@ export const Header = () => {
         <Logo src={logo} />
       </StyledNavLink>
       <nav>
-        {userData.isAuthentified ? (
+        {userData.isAuthenticated ? (
           <MenuList>
             <MenuListItem>
               <StyledNavLink to="/profile">

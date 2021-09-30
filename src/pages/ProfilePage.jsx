@@ -9,7 +9,7 @@ import { Accounts } from '../components/Accounts.jsx';
 export const ProfilePage = () => {
   const { userData } = useContext(UserDataContext);
 
-  return userData.isAuthentified ? (
+  return userData.isAuthenticated ? (
     <ComponentWrapper>
       <h1 className="sr-only">Profile Page</h1>
       <ProfileHeader />

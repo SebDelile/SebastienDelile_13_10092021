@@ -44,11 +44,11 @@ export const LoginPage = () => {
       setIsLoading(false);
     } else {
       updateUserData({
-        isAuthentified: true,
+        isAuthenticated: true,
         token: loginRequest.resolved.data.body.token,
         remember: creditential.remember,
       });
-      //isAuthentified update will trigger the redirect to ProfilePage;
+      //isAuthenticated update will trigger the redirect to ProfilePage;
     }
   };
 
@@ -67,7 +67,7 @@ export const LoginPage = () => {
     }
   };
 
-  return userData.isAuthentified ? (
+  return userData.isAuthenticated ? (
     <Redirect to="/profile" />
   ) : (
     <ComponentWrapper>
