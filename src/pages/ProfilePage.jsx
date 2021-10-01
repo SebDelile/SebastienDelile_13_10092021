@@ -1,19 +1,19 @@
-import { useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { colors } from '../utils/style/colors.js';
 import { ProfileHeader } from '../components/ProfileHeader.jsx';
 import { Accounts } from '../components/Accounts.jsx';
+import { useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '../features/authentication.js';
 
 export const ProfilePage = () => {
-  const { userData } = useContext(UserDataContext);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  return userData.isAuthenticated ? (
+  return isAuthenticated ? (
     <ComponentWrapper>
       <h1 className="sr-only">Profile Page</h1>
       <ProfileHeader />
-      <Accounts accountsData={userData.accountsData} />
+      <Accounts />
     </ComponentWrapper>
   ) : (
     <Redirect to="/login" />
