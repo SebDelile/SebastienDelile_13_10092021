@@ -6,6 +6,7 @@ import {
   completedActionHandler,
 } from '../utils/redux/statusActionHandlers.js';
 import { resetAccounts } from './accounts.js';
+import { clearStorages } from '../utils/services/storageManagement.js';
 
 // init
 const sliceName = 'authentication';
@@ -39,6 +40,7 @@ export const logout = () => (dispatch) => {
   dispatch(resetAuthentication());
   dispatch(resetProfile());
   dispatch(resetAccounts());
+  clearStorages();
 };
 
 // slice
