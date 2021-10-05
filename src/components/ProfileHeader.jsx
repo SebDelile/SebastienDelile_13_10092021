@@ -1,39 +1,33 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { LoadingErrorDisplay } from './LoadingErrorDisplay.jsx';
 import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
-import { UserDataContext } from '../utils/contexts/UserDataContext.js';
-import { apiRequest } from '../utils/services/apiRequest.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
+import {
+  fetchProfileInfo,
+  selectProfile,
+  updateProfileInfo,
+} from '../features/profile.js';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const ProfileHeader = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingError, setIsLoadingError] = useState(false);
-  const [isUpdatingError, setIsUpdatingError] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [inputingName, setInputingName] = useState({
     firstName: '',
     lastName: '',
   });
-  const { userData, updateUserData } = useContext(UserDataContext);
 
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const dataRequest = await apiRequest({
-        type: 'post',
-        endPoint: '/user/profile',
-        token: userData.token,
-      });
-      if (dataRequest.rejected) setIsLoadingError(true);
-      else
-        updateUserData({
-          firstName: dataRequest.resolved.data.body.firstName,
-          lastName: dataRequest.resolved.data.body.lastName,
-        });
-      setIsLoading(false);
-    })();
-  }, [updateUserData, userData.token]);
+  const dispatch = useDispatch();
+  const { firstName, lastName, loading, error } = useSelector(selectProfile);
+
+  useEffect(() => dispatch(fetchProfileInfo()), [dispatch]);
+  useEffect(() => setIsEditing(false), [firstName, lastName]);
+
+  const handleEditName = () => {
+    setInputingName({ firstName: '', lastName: '' });
+    setIsEditing(true);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -43,49 +37,21 @@ export const ProfileHeader = () => {
     }));
   };
 
-  const handleEditName = () => {
-    setIsUpdatingError(false);
-    setIsEditing(true);
-  };
-
-  const handleSaveName = async (e) => {
+  const handleSaveName = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    const updateRequest = await apiRequest({
-      type: 'put',
-      endPoint: '/user/profile',
-      token: userData.token,
-      body: {
-        firstName: inputingName.firstName,
-        lastName: inputingName.lastName,
-      },
-    });
-    if (updateRequest.rejected) {
-      setIsUpdatingError(true);
-      setIsLoading(false);
-    } else {
-      updateUserData({
-        firstName: updateRequest.resolved.data.body.firstName,
-        lastName: updateRequest.resolved.data.body.lastName,
-      });
-      setInputingName({ firstName: '', lastName: '' });
-      setIsEditing(false);
-      setIsLoading(false);
-    }
+    dispatch(updateProfileInfo(inputingName));
   };
 
   const handleCancelEditName = () => {
-    setInputingName({ firstName: '', lastName: '' });
     setIsEditing(false);
   };
 
   return (
     <ComponentWrapper>
       <Greetings>Welcome back</Greetings>
-      {isLoading ? (
+      {loading === 'pending' ? (
         <LoadingSpinner color="white" size="50px" />
-      ) : isLoadingError ? (
+      ) : error === 'fetching error' ? (
         <LoadingErrorDisplay color="white" />
       ) : (
         <>
@@ -94,14 +60,14 @@ export const ProfileHeader = () => {
               <InputName
                 type="text"
                 name="firstName"
-                placeholder={userData.firstName}
+                placeholder={firstName}
                 value={inputingName.firstName}
                 onChange={handleInputChange}
               />
               <InputName
                 type="text"
                 name="lastName"
-                placeholder={userData.lastName}
+                placeholder={lastName}
                 value={inputingName.lastName}
                 onChange={handleInputChange}
               />
@@ -111,7 +77,7 @@ export const ProfileHeader = () => {
               <EditNameButton type="button" onClick={handleCancelEditName}>
                 Cancel
               </EditNameButton>
-              {isUpdatingError ? (
+              {error === 'updating error' ? (
                 <EditNameErrorMessage>
                   Updating has failed, please try again later.
                 </EditNameErrorMessage>
@@ -120,7 +86,7 @@ export const ProfileHeader = () => {
           ) : (
             <DisplayedNameWrapper>
               <Greetings>
-                {userData.firstName} {userData.lastName}
+                {firstName} {lastName}
               </Greetings>
               <EditNameButton type="button" onClick={handleEditName}>
                 Edit
@@ -177,9 +143,6 @@ const EditingNameWrapper = styled.form`
   gap: 0.5rem 1rem;
   grid-template-columns: repeat(2, 1fr);
   margin-top: 1.5rem;
-
-  @media only screen and (min-width: 45rem) {
-  }
 `;
 
 /**

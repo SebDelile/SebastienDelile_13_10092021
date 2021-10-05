@@ -1,16 +1,19 @@
-import { useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import logo from '../assets/argentBankLogo.png';
 import { colors } from '../utils/style/colors.js';
+import { selectFirstName } from '../features/profile';
+import { logout, selectIsAuthenticated } from '../features/authentication';
 
 export const Header = () => {
-  const { userData, resetUserData } = useContext(UserDataContext);
   let history = useHistory();
+  const firstName = useSelector(selectFirstName);
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const dispatch = useDispatch();
 
   const handleSignout = () => {
-    resetUserData();
+    dispatch(logout());
     history.push('/');
   };
 
@@ -20,12 +23,12 @@ export const Header = () => {
         <Logo src={logo} />
       </StyledNavLink>
       <nav>
-        {userData.isAuthentified ? (
+        {isAuthenticated ? (
           <MenuList>
             <MenuListItem>
               <StyledNavLink to="/profile">
                 <i className="fa fa-user-circle" aria-hidden={true}></i>{' '}
-                {userData.firstName}
+                {firstName}
               </StyledNavLink>
             </MenuListItem>
             <MenuListItem>

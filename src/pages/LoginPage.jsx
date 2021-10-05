@@ -1,11 +1,11 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Redirect } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
-import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { colors } from '../utils/style/colors.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
-import { apiRequest } from '../utils/services/apiRequest.js';
+import { login, selectAuthentication } from '../features/authentication.js';
 
 export const LoginPage = () => {
   const [creditential, setCreditential] = useState({
@@ -13,9 +13,8 @@ export const LoginPage = () => {
     password: '',
     remember: false,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const { userData, updateUserData } = useContext(UserDataContext);
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading, error } = useSelector(selectAuthentication);
 
   const handleInputChange = (event) => {
     const { name, type, checked, value } = event.target;
@@ -25,49 +24,13 @@ export const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
-
-    const loginRequest = await apiRequest({
-      type: 'post',
-      endPoint: '/user/login',
-      body: {
-        email: creditential.username,
-        password: creditential.password,
-      },
-    });
-
-    if (loginRequest.rejected) {
-      handleSubmitError(loginRequest.rejected.status);
-      setIsLoading(false);
-    } else {
-      updateUserData({
-        isAuthentified: true,
-        token: loginRequest.resolved.data.body.token,
-        remember: creditential.remember,
-      });
-      //isAuthentified update will trigger the redirect to ProfilePage;
-    }
+    dispatch(login(creditential));
+    //isAuthenticated update will trigger the redirect to ProfilePage;
   };
 
-  const handleSubmitError = (status) => {
-    switch (status) {
-      case 400:
-        setError(
-          'Username and/or password is invalid, please check your inputs and try again.'
-        );
-        break;
-      case 404:
-        setError('Wrong request, please contact the app administrator.');
-        break;
-      default:
-        setError('Server is unreachable, please try again later.');
-    }
-  };
-
-  return userData.isAuthentified ? (
+  return isAuthenticated ? (
     <Redirect to="/profile" />
   ) : (
     <ComponentWrapper>
@@ -109,7 +72,11 @@ export const LoginPage = () => {
           <label htmlFor="remember">Remember me</label>
         </CheckboxWrapper>
         <ButtonSubmit type="submit" onClick={handleSubmit}>
-          {isLoading ? <LoadingSpinner color="white" size="1em" /> : 'Sign In'}
+          {loading === 'pending' ? (
+            <LoadingSpinner color="white" size="1em" />
+          ) : (
+            'Sign In'
+          )}
         </ButtonSubmit>
         {error ? <ErrorMessage>{error}</ErrorMessage> : null}
       </Form>

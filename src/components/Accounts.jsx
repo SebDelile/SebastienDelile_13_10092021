@@ -1,48 +1,32 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
-import { UserDataContext } from '../utils/contexts/UserDataContext.js';
 import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
-import { ACCOUNTS_DATA } from '../data/ACCOUNTS_DATA.js';
 import { toUsCurrency } from '../utils/processes/toUsCurrency.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 import { LoadingErrorDisplay } from './LoadingErrorDisplay.jsx';
+import { fetchAccounts, selectAccounts } from '../features/accounts.js';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 export const Accounts = () => {
-  const { userData, updateUserData } = useContext(UserDataContext);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    const fetchUserAccount = async () => {
-      setIsLoading(true);
-      try {
-        const accountsData = await new Promise((resolve) => {
-          setTimeout(() => resolve(ACCOUNTS_DATA), 2000);
-        });
-        updateUserData({ accountsData: accountsData });
-      } catch {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchUserAccount();
-  }, [updateUserData]);
+  const dispatch = useDispatch();
+  const { loading, error, setOfAccounts } = useSelector(selectAccounts);
+  useEffect(() => dispatch(fetchAccounts()), [dispatch]);
 
   return (
     <ComponentWrapper>
       <h2 className="sr-only">List of accounts</h2>
-      {isLoading ? (
+      {loading === 'pending' ? (
         <LoadingSpinner color="white" size="150px" />
-      ) : isError ? (
+      ) : error === 'fetching error' ? (
         <LoadingErrorDisplay color="white" />
       ) : (
-        userData.accountsData.map((accountData, index) => (
+        setOfAccounts.map((account, index) => (
           <Account key={index}>
-            <AccountTitle>{accountData.title}</AccountTitle>
-            <AccountAmount>{toUsCurrency(accountData.amount)}</AccountAmount>
+            <AccountTitle>{account.title}</AccountTitle>
+            <AccountAmount>{toUsCurrency(account.amount)}</AccountAmount>
             <AccountAmountDescription>
-              {accountData.amountDescription}
+              {account.amountDescription}
             </AccountAmountDescription>
             <ViewTransactionButton>View transactions</ViewTransactionButton>
           </Account>
