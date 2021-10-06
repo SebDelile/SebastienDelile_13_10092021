@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import errorLogo from '../assets/error-logo.png';
 
+/**
+ * the error page: include a link to goback to homepage.
+ * @namespace ErrorPage
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const ErrorPage = () => (
   <ComponentWrapper>
     <Image src={errorLogo} alt="Error logo" />
@@ -15,7 +20,7 @@ export const ErrorPage = () => (
 );
 
 /**
- * Styled-tag main for the Error page ComponentWrapper
+ * Styled-tag main for the Error page ComponentWrapper.
  * @memberof ErrorPage
  */
 const ComponentWrapper = styled.main`
@@ -36,7 +41,7 @@ const ComponentWrapper = styled.main`
 `;
 
 /**
- * Styled-tag img for the banner image of the error page
+ * Styled-tag img for the banner image of the error page.
  * @memberof ErrorPage
  */
 const Image = styled.img`
@@ -48,7 +53,7 @@ const Image = styled.img`
 `;
 
 /**
- * Styled-tag h1 for the title of the error page
+ * Styled-tag h1 for the title of the error page.
  * @memberof ErrorPage
  */
 const Title = styled.h1`
@@ -60,7 +65,7 @@ const Title = styled.h1`
 `;
 
 /**
- * Styled-tag p for the message of the Error page
+ * Styled-tag p for the message of the Error page.
  * @memberof ErrorPage
  */
 const Message = styled.p`
@@ -72,7 +77,7 @@ const Message = styled.p`
 `;
 
 /**
- * Styled-component Link (react-router-dom) of the error page to redirect to the home page
+ * Styled-component Link (react-router-dom) of the error page to redirect to the home page.
  * @memberof ErrorPage
  */
 const StyledLink = styled(Link)`

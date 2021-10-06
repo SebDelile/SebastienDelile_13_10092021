@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: pages/LoginPage.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: pages/LoginPage.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState } from 'react';
+import { Redirect } from 'react-router';
+import { useSelector, useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
+import { colors } from '../utils/style/colors.js';
+import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
+import { login, selectAuthentication } from '../features/authentication.js';
+
+/**
+ * The login Page : include a form to submit login info.
+ * Contain logic to display either loader, error or content.
+ * @namespace LoginPage
+ * @returns {ReactElement} jsx to be injected in the html
+ */
+export const LoginPage = () => {
+  const [creditential, setCreditential] = useState({
+    username: '',
+    password: '',
+    remember: false,
+  });
+  const dispatch = useDispatch();
+  const { isAuthenticated, loading, error } = useSelector(selectAuthentication);
+
+  /**
+   * handle each change in the input fields by updating the local state with the new value.
+   * @param {object} event - the event object
+   * @memberof LoginPage
+   */
+  const handleInputChange = (event) => {
+    const { name, type, checked, value } = event.target;
+    setCreditential((prevState) => ({
+      ...prevState,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  /**
+   * handle the launch of the action to submit the creditential to the api.
+   * @param {object} event - the event object
+   * @memberof LoginPage
+   */
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(creditential));
+    //isAuthenticated update will trigger the redirect to ProfilePage.
+  };
+
+  return isAuthenticated ? (
+    &lt;Redirect to="/profile" />
+  ) : (
+    &lt;ComponentWrapper>
+      &lt;Form>
+        &lt;Icon aria-hidden={true}>
+          &lt;i className="fa fa-user-circle">&lt;/i>
+        &lt;/Icon>
+        &lt;Title>Sign In&lt;/Title>
+        &lt;InputWrapper>
+          &lt;label htmlFor="username">Username&lt;/label>
+          &lt;input
+            type="text"
+            name="username"
+            id="username"
+            required
+            value={creditential.username}
+            onChange={handleInputChange}
+          />
+        &lt;/InputWrapper>
+        &lt;InputWrapper>
+          &lt;label htmlFor="password">Password&lt;/label>
+          &lt;input
+            type="password"
+            name="password"
+            id="password"
+            required
+            value={creditential.password}
+            onChange={handleInputChange}
+          />
+        &lt;/InputWrapper>
+        &lt;CheckboxWrapper>
+          &lt;input
+            type="checkbox"
+            id="remember"
+            name="remember"
+            checked={creditential.remember}
+            onChange={handleInputChange}
+          />
+          &lt;label htmlFor="remember">Remember me&lt;/label>
+        &lt;/CheckboxWrapper>
+        &lt;ButtonSubmit type="submit" onClick={handleSubmit}>
+          {loading === 'pending' ? (
+            &lt;LoadingSpinner color="white" size="1em" />
+          ) : (
+            'Sign In'
+          )}
+        &lt;/ButtonSubmit>
+        {error ? &lt;ErrorMessage>{error}&lt;/ErrorMessage> : null}
+      &lt;/Form>
+    &lt;/ComponentWrapper>
+  );
+};
+
+/**
+ * Styled-tag main for the Login page ComponentWrapper.
+ * @memberof LoginPage
+ */
+const ComponentWrapper = styled.main`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: ${colors.secondary};
+`;
+
+/**
+ * Styled-tag form for the form of the Login page.
+ * @memberof LoginPage
+ */
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: white;
+  width: 18.75rem;
+  margin: 3rem 0;
+  padding: 2rem;
+`;
+
+/**
+ * Styled-tag p for the icon of the Login page.
+ * @memberof LoginPage
+ */
+const Icon = styled.p`
+  font-size: 5rem;
+`;
+
+/**
+ * Styled-tag h1 for the title of the Login page.
+ * @memberof LoginPage
+ */
+const Title = styled.h1`
+  font-size: 1.5rem;
+  margin: 1.25rem 0;
+  font-weight: 700;
+`;
+
+/**
+ * Styled-tag div for the wrapper of the input text of the Login page.
+ * @memberof LoginPage
+ */
+const InputWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  text-align: left;
+  margin-bottom: 1rem;
+
+  &amp; label {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  &amp; input {
+    padding: 0.25rem;
+    font-size: 1.2rem;
+  }
+`;
+
+/**
+ * Styled-tag div for the wrapper of the input checkbox of the Login page.
+ * @memberof LoginPage
+ */
+const CheckboxWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  &amp; > * {
+    cursor: pointer;
+  }
+
+  &amp; label {
+    margin-left: 0.25rem;
+    font-size: 1rem;
+  }
+`;
+
+/**
+ * Styled-tag button for the submit button of the Login page.
+ * @memberof LoginPage
+ */
+const ButtonSubmit = styled.button`
+  ${mainButtonStyle}
+
+  width: 100%;
+`;
+
+/**
+ * Styled-tag p for the error message of the Login page.
+ * @memberof LoginPage
+ */
+const ErrorMessage = styled.p`
+  font-size: 1rem;
+  color: red;
+  margin-top: 1rem;
+`;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="-_index.html">_index</a></li><li><a href="Accounts.html">Accounts</a></li><li><a href="apiRequest.html">apiRequest</a></li><li><a href="App.html">App</a></li><li><a href="CardGroup.html">CardGroup</a></li><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="Hero.html">Hero</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadingErrorDisplay.html">LoadingErrorDisplay</a></li><li><a href="LoadingSpinner.html">LoadingSpinner</a></li><li><a href="LoginPage.html">LoginPage</a></li><li><a href="ProfileHeader.html">ProfileHeader</a></li><li><a href="ProfilePage.html">ProfilePage</a></li><li><a href="redux.html">redux</a></li><li><a href="reduxFeature_accounts.html">reduxFeature_accounts</a></li><li><a href="reduxFeature_authentication.html">reduxFeature_authentication</a></li><li><a href="reduxFeature_profile.html">reduxFeature_profile</a></li><li><a href="style.html">style</a></li><li><a href="utils.html">utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 06 2021 19:20:59 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

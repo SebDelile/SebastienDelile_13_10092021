@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: features/authentication.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: features/authentication.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { loginRequest } from '../utils/services/apiRequest.js';
+import { resetProfile } from './profile.js';
+import {
+  pendingActionHandler,
+  completedActionHandler,
+} from '../utils/redux/statusActionHandlers.js';
+import { resetAccounts } from './accounts.js';
+import { clearStorages } from '../utils/services/storageManagement.js';
+
+/**
+ * @namespace reduxFeature_authentication
+ */
+
+/**
+ * name of the feature.
+ * @memberof reduxFeature_authentication
+ */
+const sliceName = 'authentication';
+/**
+ * initial state of the feature.
+ * @memberof reduxFeature_authentication
+ */
+const initialState = {
+  isAuthenticated: false,
+  token: '',
+  remember: undefined,
+  loading: 'idle',
+  error: '',
+};
+
+/**
+ * thunk to make async call to API and try to login and get a JWT token.
+ * @function login
+ * @async
+ * @memberof reduxFeature_authentication
+ * @return {object} - the API response (containing a JWT token on success)
+ */
+export const login = createAsyncThunk(
+  sliceName + '/login',
+  async (creditential, { getState, rejectWithValue, dispatch }) => {
+    if (getState().authentication.loading !== 'pending') return;
+    try {
+      const response = await loginRequest({
+        email: creditential.username,
+        password: creditential.password,
+      });
+      response.data.body.remember = creditential.remember;
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.request.status);
+    }
+  }
+);
+
+/**
+ * thunk to call several action within one : clear all redux state + clear local/session storages.
+ * @function logout
+ * @memberof reduxFeature_authentication
+ */
+export const logout = () => (dispatch) => {
+  dispatch(resetAuthentication());
+  dispatch(resetProfile());
+  dispatch(resetAccounts());
+  clearStorages();
+};
+
+/**
+ * the slice of the feature, implemented with the readux-toolkit createSlice.
+ * @memberof reduxFeature_authentication
+ */
+const authenticationSlice = createSlice({
+  name: sliceName,
+  initialState,
+  reducers: {
+    resetAuthentication: (state) => (state = initialState),
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        if (state.loading === 'pending') {
+          state.isAuthenticated = true;
+          state.token = action.payload.body.token;
+          state.remember = action.payload.body.remember;
+        }
+      })
+      .addCase(login.rejected, (state, action) => {
+        if (state.loading === 'pending') {
+          state.error =
+            action.payload === 400
+              ? 'Username and/or password is invalid, please check your inputs and try again.'
+              : 'There is a network error, please check your connection and/or try again later.';
+        }
+      })
+      .addMatcher(...pendingActionHandler(sliceName))
+      .addMatcher(...completedActionHandler(sliceName));
+  },
+});
+
+/**
+ * Action objects to be called to trigger the reducer.
+ * @const {object} sliceActions
+ * @property {object} resetAuthentication - action to reset the authentication state
+ * @memberof reduxFeature_authentication
+ */
+export const { resetAuthentication } = authenticationSlice.actions;
+
+/**
+ * select the authentication properties in the redux state.
+ * @function selectAuthentication
+ * @memberof reduxFeature_authentication
+ * @returns {object} - authentication state value
+ */
+export const selectAuthentication = (state) => state.authentication;
+
+/**
+ * select the isAuthenticated state.
+ * @function selectIsAuthenticated
+ * @memberof reduxFeature_authentication
+ * @returns {boolean} - true id authenticated, false otherwise
+ */
+export const selectIsAuthenticated = (state) =>
+  state.authentication.isAuthenticated;
+
+/**
+ * the slice reducer to be imported in the store.
+ * @const {object} sliceReducer
+ * @memberof reduxFeature_authentication
+ */
+export default authenticationSlice.reducer;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="-_index.html">_index</a></li><li><a href="Accounts.html">Accounts</a></li><li><a href="apiRequest.html">apiRequest</a></li><li><a href="App.html">App</a></li><li><a href="CardGroup.html">CardGroup</a></li><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="Hero.html">Hero</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadingErrorDisplay.html">LoadingErrorDisplay</a></li><li><a href="LoadingSpinner.html">LoadingSpinner</a></li><li><a href="LoginPage.html">LoginPage</a></li><li><a href="ProfileHeader.html">ProfileHeader</a></li><li><a href="ProfilePage.html">ProfilePage</a></li><li><a href="redux.html">redux</a></li><li><a href="reduxFeature_accounts.html">reduxFeature_accounts</a></li><li><a href="reduxFeature_authentication.html">reduxFeature_authentication</a></li><li><a href="reduxFeature_profile.html">reduxFeature_profile</a></li><li><a href="style.html">style</a></li><li><a href="utils.html">utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 06 2021 19:20:59 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

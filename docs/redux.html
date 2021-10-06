@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Namespace: redux</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Namespace: redux</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>redux</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description">The Redux store initialization. It is created from redux-toolkit configureStore.</div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_store.js.html">app/store.js</a>, <a href="app_store.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".exports.apiResponseErrorHandler"><span class="type-signature">(static, constant) </span>exports.apiResponseErrorHandler<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    catch the error, if error is code 401, logout the user, else throw an error for the reducer.rejected to handle it.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_redux_apiResponseErrorHandler.js.html">utils/redux/apiResponseErrorHandler.js</a>, <a href="utils_redux_apiResponseErrorHandler.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.clearStorages"><span class="type-signature">(static, constant) </span>exports.clearStorages<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    a function to clear both stores on logout.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line41">line 41</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.completedActionHandler"><span class="type-signature">(static, constant) </span>exports.completedActionHandler<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    function that return both functions to test if the action is completed (fulfilled or rejected) and the corresponding callback.used to manage the state.loading of the slice.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line34">line 34</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.loadFromStorage"><span class="type-signature">(static, constant) </span>exports.loadFromStorage<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    the function to check for existence of previsouly stored state, and return it if any.check the timestamp if both localStorage and sessionStorage exist and pick the latest.timestamp is removed before loading as redux state.return undefined if no stored state (so initial state of the slices are loaded).
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line26">line 26</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.pendingActionHandler"><span class="type-signature">(static, constant) </span>exports.pendingActionHandler<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    function that return both functions to test if the action is pending and the corresponding callback.* used to manage the state.loading of the slice and clean the state.error on each request.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".exports.saveToStorage"><span class="type-signature">(static, constant) </span>exports.saveToStorage<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    the middleware to store any change of the store in sessionStorage/localStorage.add a timestamp before saving.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="-_index.html">_index</a></li><li><a href="Accounts.html">Accounts</a></li><li><a href="apiRequest.html">apiRequest</a></li><li><a href="App.html">App</a></li><li><a href="CardGroup.html">CardGroup</a></li><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="Hero.html">Hero</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadingErrorDisplay.html">LoadingErrorDisplay</a></li><li><a href="LoadingSpinner.html">LoadingSpinner</a></li><li><a href="LoginPage.html">LoginPage</a></li><li><a href="ProfileHeader.html">ProfileHeader</a></li><li><a href="ProfilePage.html">ProfilePage</a></li><li><a href="redux.html">redux</a></li><li><a href="reduxFeature_accounts.html">reduxFeature_accounts</a></li><li><a href="reduxFeature_authentication.html">reduxFeature_authentication</a></li><li><a href="reduxFeature_profile.html">reduxFeature_profile</a></li><li><a href="style.html">style</a></li><li><a href="utils.html">utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 06 2021 19:20:59 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

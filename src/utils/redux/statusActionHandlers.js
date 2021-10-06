@@ -12,11 +12,25 @@ const completedActionCallback = (state, action) => {
   state.loading = 'idle';
 };
 
+/**
+ * function that return both functions to test if the action is pending and the corresponding callback.
+ * * used to manage the state.loading of the slice and clean the state.error on each request.
+ * @memberof redux
+ * @param {string} name - the slice's name
+ * @returns {array} the matcher test function and the matcher callback
+ */
 export const pendingActionHandler = (name) => [
   isPendingAction(name),
   pendingActionCallback,
 ];
 
+/**
+ * function that return both functions to test if the action is completed (fulfilled or rejected) and the corresponding callback.
+ * used to manage the state.loading of the slice.
+ * @memberof redux
+ * @param {string} name - the slice's name
+ * @returns {array} the matcher test function and the matcher callback
+ */
 export const completedActionHandler = (name) => [
   isCompletedAction(name),
   completedActionCallback,

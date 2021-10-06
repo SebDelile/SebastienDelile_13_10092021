@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-
 import authenticationReducer from '../features/authentication.js';
 import profileReducer from '../features/profile.js';
 import accountsReducer from '../features/accounts.js';
@@ -8,6 +7,10 @@ import {
   saveToStorage,
 } from '../utils/services/storageManagement.js';
 
+/**
+ * The Redux store initialization. It is created from redux-toolkit configureStore.
+ * @namespace redux
+ */
 export const store = configureStore({
   reducer: {
     authentication: authenticationReducer,

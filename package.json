@@ -22,7 +22,8 @@
     "test": "react-scripts test",
     "startAPI": "cd ../Project-10-Bank-API-master && npm run dev:server",
     "populateAPI": "cd ../Project-10-Bank-API-master && npm run populate-db",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "jsdoc": "./node_modules/.bin/jsdoc src -r -d docs --readme docs/_homepage.md"
   },
   "eslintConfig": {
     "extends": [

@@ -6,6 +6,12 @@ import { colors } from '../utils/style/colors.js';
 import { selectFirstName } from '../features/profile';
 import { logout, selectIsAuthenticated } from '../features/authentication';
 
+/**
+ * the Header component
+ * Contain logic to display either user's name and signout button, or signin button.
+ * @namespace Header
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const Header = () => {
   let history = useHistory();
   const firstName = useSelector(selectFirstName);
@@ -52,7 +58,7 @@ export const Header = () => {
 };
 
 /**
- * Styled-tag header to wrap header content
+ * Styled-tag header to wrap header content.
  * @memberof Header
  */
 const ComponentWrapper = styled.header`
@@ -63,7 +69,7 @@ const ComponentWrapper = styled.header`
 `;
 
 /**
- * Styled version of NavLink (react-router-dom)
+ * Styled version of NavLink (react-router-dom).
  * @memberof Header
  */
 const StyledNavLink = styled(NavLink)`
@@ -74,7 +80,7 @@ const StyledNavLink = styled(NavLink)`
 `;
 
 /**
- * Styled-tag img for the logo in the header
+ * Styled-tag img for the logo in the header.
  * @memberof Header
  */
 const Logo = styled.img`
@@ -83,7 +89,7 @@ const Logo = styled.img`
 `;
 
 /**
- * Styled-tag ul for the navigation menu list
+ * Styled-tag ul for the navigation menu list.
  * @memberof Header
  */
 const MenuList = styled.ul`
@@ -91,7 +97,7 @@ const MenuList = styled.ul`
 `;
 
 /**
- * Styled-tag li for the navigation menu items
+ * Styled-tag li for the navigation menu items.
  * @memberof Header
  */
 const MenuListItem = styled.li`

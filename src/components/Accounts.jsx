@@ -8,9 +8,21 @@ import { fetchAccounts, selectAccounts } from '../features/accounts.js';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+/**
+ * the Accounts component, wrapper of the Account elements.
+ * Contain logic to display either loader, error or content.
+ * @namespace Accounts
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const Accounts = () => {
   const dispatch = useDispatch();
   const { loading, error, setOfAccounts } = useSelector(selectAccounts);
+
+  /**
+   * Launch a fetch action on mounting to load accounts data.
+   * @function useEffect
+   * @memberof Accounts
+   */
   useEffect(() => dispatch(fetchAccounts()), [dispatch]);
 
   return (
@@ -37,7 +49,7 @@ export const Accounts = () => {
 };
 
 /**
- * Styled-tag section for the Accounts ComponentWrapper
+ * Styled-tag section for the Accounts ComponentWrapper.
  * @memberof Accounts
  */
 const ComponentWrapper = styled.section`
@@ -49,7 +61,7 @@ const ComponentWrapper = styled.section`
 `;
 
 /**
- * Styled-tag article for the Account item
+ * Styled-tag article for the Account item.
  * @memberof Accounts
  */
 const Account = styled.article`
@@ -81,7 +93,7 @@ const Account = styled.article`
 `;
 
 /**
- * Styled-tag h3 for the Account title
+ * Styled-tag h3 for the Account title.
  * @memberof Accounts
  */
 const AccountTitle = styled.h3`
@@ -91,7 +103,7 @@ const AccountTitle = styled.h3`
 `;
 
 /**
- * Styled-tag p for the Account amount
+ * Styled-tag p for the Account amount.
  * @memberof Accounts
  */
 const AccountAmount = styled.p`
@@ -101,7 +113,7 @@ const AccountAmount = styled.p`
 `;
 
 /**
- * Styled-tag p for the Account amount description
+ * Styled-tag p for the Account amount description.
  * @memberof Accounts
  */
 const AccountAmountDescription = styled.p`
@@ -111,7 +123,7 @@ const AccountAmountDescription = styled.p`
 `;
 
 /**
- * Styled-tag button for the Account view transaction button
+ * Styled-tag button for the Account view transaction button.
  * @memberof Accounts
  */
 const ViewTransactionButton = styled.button`

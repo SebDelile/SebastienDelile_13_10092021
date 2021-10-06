@@ -7,6 +7,12 @@ import { colors } from '../utils/style/colors.js';
 import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
 import { login, selectAuthentication } from '../features/authentication.js';
 
+/**
+ * The login Page : include a form to submit login info.
+ * Contain logic to display either loader, error or content.
+ * @namespace LoginPage
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const LoginPage = () => {
   const [creditential, setCreditential] = useState({
     username: '',
@@ -16,6 +22,11 @@ export const LoginPage = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, loading, error } = useSelector(selectAuthentication);
 
+  /**
+   * handle each change in the input fields by updating the local state with the new value.
+   * @param {object} event - the event object
+   * @memberof LoginPage
+   */
   const handleInputChange = (event) => {
     const { name, type, checked, value } = event.target;
     setCreditential((prevState) => ({
@@ -24,10 +35,15 @@ export const LoginPage = () => {
     }));
   };
 
+  /**
+   * handle the launch of the action to submit the creditential to the api.
+   * @param {object} event - the event object
+   * @memberof LoginPage
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(creditential));
-    //isAuthenticated update will trigger the redirect to ProfilePage;
+    //isAuthenticated update will trigger the redirect to ProfilePage.
   };
 
   return isAuthenticated ? (
@@ -85,7 +101,7 @@ export const LoginPage = () => {
 };
 
 /**
- * Styled-tag main for the Login page ComponentWrapper
+ * Styled-tag main for the Login page ComponentWrapper.
  * @memberof LoginPage
  */
 const ComponentWrapper = styled.main`
@@ -97,7 +113,7 @@ const ComponentWrapper = styled.main`
 `;
 
 /**
- * Styled-tag form for the form of the Login page
+ * Styled-tag form for the form of the Login page.
  * @memberof LoginPage
  */
 const Form = styled.form`
@@ -112,7 +128,7 @@ const Form = styled.form`
 `;
 
 /**
- * Styled-tag p for the icon of the Login page
+ * Styled-tag p for the icon of the Login page.
  * @memberof LoginPage
  */
 const Icon = styled.p`
@@ -120,7 +136,7 @@ const Icon = styled.p`
 `;
 
 /**
- * Styled-tag h1 for the title of the Login page
+ * Styled-tag h1 for the title of the Login page.
  * @memberof LoginPage
  */
 const Title = styled.h1`
@@ -130,7 +146,7 @@ const Title = styled.h1`
 `;
 
 /**
- * Styled-tag div for the wrapper of the input text of the Login page
+ * Styled-tag div for the wrapper of the input text of the Login page.
  * @memberof LoginPage
  */
 const InputWrapper = styled.div`
@@ -152,7 +168,7 @@ const InputWrapper = styled.div`
 `;
 
 /**
- * Styled-tag div for the wrapper of the input checkbox of the Login page
+ * Styled-tag div for the wrapper of the input checkbox of the Login page.
  * @memberof LoginPage
  */
 const CheckboxWrapper = styled.div`
@@ -173,7 +189,7 @@ const CheckboxWrapper = styled.div`
 `;
 
 /**
- * Styled-tag button for the submit button of the Login page
+ * Styled-tag button for the submit button of the Login page.
  * @memberof LoginPage
  */
 const ButtonSubmit = styled.button`
@@ -183,7 +199,7 @@ const ButtonSubmit = styled.button`
 `;
 
 /**
- * Styled-tag p for the error message of the Login page
+ * Styled-tag p for the error message of the Login page.
  * @memberof LoginPage
  */
 const ErrorMessage = styled.p`

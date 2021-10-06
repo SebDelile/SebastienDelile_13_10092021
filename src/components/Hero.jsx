@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+/**
+ * the Hero component.
+ * Contain a title, text and background image.
+ * @namespace Hero
+ * @param {object} props.content - the content props passed to the component
+ * @param {string} props.content.backgroundImage - the image reference to pass as background
+ * @param {string} props.content.title - the title of the hero
+ * @param {string} props.content.text - the text of the hero
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const Hero = ({ content }) => {
   const { backgroundImage, title, text, purpose } = content;
   return (
@@ -14,7 +24,7 @@ export const Hero = ({ content }) => {
 };
 
 /**
- * Styled-tag section to wrap the hero
+ * Styled-tag section to wrap the hero.
  * @memberof Hero
  */
 const ComponentWrapper = styled.section`
@@ -33,7 +43,7 @@ const ComponentWrapper = styled.section`
 `;
 
 /**
- * Styled-tag div to wrap the hero title and text
+ * Styled-tag div to wrap the hero title and text.
  * @memberof Hero
  */
 const HeroContent = styled.div`
@@ -55,7 +65,7 @@ const HeroContent = styled.div`
 `;
 
 /**
- * Styled-tag h3 : the hero title
+ * Styled-tag h3 : the hero title.
  * @memberof Hero
  */
 const HeroTitle = styled.h3`
@@ -69,7 +79,7 @@ const HeroTitle = styled.h3`
 `;
 
 /**
- * Styled-tag p : the hero text
+ * Styled-tag p : the hero text.
  * @memberof Hero
  */
 const HeroText = styled.p`

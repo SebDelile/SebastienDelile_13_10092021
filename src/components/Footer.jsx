@@ -1,13 +1,18 @@
 import styled from 'styled-components';
 
+/**
+ * the Footer component
+ * @namespace Footer
+ * @returns {ReactElement} jsx to be injected in the html.
+ */
 export const Footer = () => (
   <ComponentWrapper>
-    <Disclaimer>Copyright 2020 Argent Bank</Disclaimer>
+    <p>Copyright 2020 Argent Bank</p>
   </ComponentWrapper>
 );
 
 /**
- * Styled-tag footer to wrap footer content
+ * Styled-tag footer to wrap footer content.
  * @memberof Footer
  */
 const ComponentWrapper = styled.footer`
@@ -17,9 +22,3 @@ const ComponentWrapper = styled.footer`
   border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
 `;
-
-/**
- * Styled tag p containing the disclaimer text
- * @memberof Footer
- */
-const Disclaimer = styled.p``;

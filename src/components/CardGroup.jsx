@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { colors } from '../utils/style/colors.js';
 
+/**
+ * the CardGroup component, wrapper of the card elements.
+ * @namespace CardGroup
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const CardGroup = ({ content }) => {
   const { cardArray, purpose } = content;
   return (
@@ -18,7 +23,7 @@ export const CardGroup = ({ content }) => {
 };
 
 /**
- * Styled-tag section to wrap the Card's group
+ * Styled-tag section to wrap the Card's group.
  * @memberof CardGroup
  */
 const ComponentWrapper = styled.section`
@@ -31,7 +36,7 @@ const ComponentWrapper = styled.section`
 `;
 
 /**
- * Styled-tag article to wrap the Card
+ * Styled-tag article to wrap the Card.
  * @memberof CardGroup
  */
 const Card = styled.article`
@@ -44,7 +49,7 @@ const Card = styled.article`
 `;
 
 /**
- * Styled-tag img : the heading icon of the card
+ * Styled-tag img : the heading icon of the card.
  * @memberof CardGroup
  */
 const CardImage = styled.img`
@@ -55,7 +60,7 @@ const CardImage = styled.img`
 `;
 
 /**
- * Styled-tag h3 : the title of the card
+ * Styled-tag h3 : the title of the card.
  * @memberof CardGroup
  */
 const CardTitle = styled.h3`
@@ -66,7 +71,7 @@ const CardTitle = styled.h3`
 `;
 
 /**
- * Styled-tag p : the text of the card
+ * Styled-tag p : the text of the card.
  * @memberof CardGroup
  */
 const CardText = styled.p`

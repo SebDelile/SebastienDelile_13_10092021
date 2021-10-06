@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 import { keyframes } from '../utils/style/keyframes.js';
 
+/**
+ * the LoadingSpinner component.
+ * Contain a spinner animation.
+ * @namespace LoadingSpinner
+ * @param {string} props.color - the color passed to the component, used as spinner color (ex: '#FFFFFF')
+ * @param {string} props.size - the size of the spinner passed to the component (ex: '100%' or '2rem')
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const LoadingSpinner = ({ color, size }) => (
   <ComponentWrapper>
     <p className="sr-only">Please wait a moment</p>
@@ -13,7 +21,7 @@ export const LoadingSpinner = ({ color, size }) => (
 );
 
 /**
- * Styled-tag div for the LoadingSpinner ComponentWrapper
+ * Styled-tag div for the LoadingSpinner ComponentWrapper.
  * @memberof LoadingSpinner
  */
 const ComponentWrapper = styled.div`
@@ -27,7 +35,7 @@ const ComponentWrapper = styled.div`
 `;
 
 /**
- * Styled-tag div for the DotWrapper of the dots
+ * Styled-tag div for the DotWrapper of the dots.
  * @memberof LoadingSpinner
  */
 const DotWrapper = styled.div`
@@ -40,7 +48,7 @@ const DotWrapper = styled.div`
 `;
 
 /**
- * Styled-tag div for the dots used for the spinner
+ * Styled-tag div for the dots used for the spinner.
  * @memberof LoadingSpinner
  */
 const Dot = styled.div`
