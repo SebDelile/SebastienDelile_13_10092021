@@ -1,0 +1,205 @@
+swagger: '2.0'
+info:
+  title: Argent Bank transaction API documentation
+  description: Contains all available API endpoints for the future transactions feature
+  version: '1.0.0'
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
+paths:
+  /user/transactions/all:
+    get:
+      tags:
+        - Transactions
+      summary: read all transactions
+      description: API to get all transactions of the user
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All transactions successfully retrived
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Transaction'
+            description: the transactions corresponding to the user
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  
+  /user/transactions/transaction:
+    get:
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      summary: read a transaction
+      description: API to get one transaction according transactionId parameter
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: id of the transaction to retrieve
+          required: true
+          schema: 
+            type: object
+            properties:
+              id:
+                type: string
+                description: the id of the transaction
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction successfully retrived
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      
+    post:
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      summary: create a transaction
+      description: API to post a new transaction
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: attributes for the creation of the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction successfully added
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      
+    put:
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      summary: update a transaction
+      description: API to put new details to a transaction according transactionId parameter
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: attributes for the update of the transaction
+          required: true
+          schema:
+            $ref: '#/definitions/Transaction'
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction successfully updated
+          schema:
+            $ref: '#/definitions/Transaction'
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+
+    delete:
+      tags:
+        - Transactions
+      security:
+        - Bearer: []
+      summary: delete a transaction
+      description: API to delete a transaction according transactionId parameter
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: body
+          name: body
+          description: id of the transaction to retrieve
+          required: true
+          schema:
+            type: integer
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction successfully deleted
+        '400':
+          description: Invalid Fields
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+  
+  
+  
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+definitions:
+  ApiResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+  Transaction:
+    properties:
+      id:
+        type: string
+        description: the autogenerated id for the transaction
+      date:
+        type: string
+        format: date-time
+        description: date of the transaction
+      name:
+        type: string
+        description: name of the transaction
+      amount:
+        type: number
+        description: th amount of the transaction
