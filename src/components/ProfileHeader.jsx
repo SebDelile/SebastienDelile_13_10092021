@@ -92,16 +92,24 @@ export const ProfileHeader = () => {
         <>
           {isEditing ? (
             <EditingNameWrapper>
+              <label className="sr-only" htmlFor="firstName">
+                Firstname
+              </label>
               <InputName
                 type="text"
                 name="firstName"
+                id="firstName"
                 placeholder={firstName}
                 value={inputingName.firstName}
                 onChange={handleInputChange}
               />
+              <label className="sr-only" htmlFor="lastName">
+                Lastname
+              </label>
               <InputName
                 type="text"
                 name="lastName"
+                id="lastName"
                 placeholder={lastName}
                 value={inputingName.lastName}
                 onChange={handleInputChange}

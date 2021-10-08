@@ -35,7 +35,7 @@ const initialState = {
 export const fetchAccounts = createAsyncThunk(
   sliceName + '/fetchAccounts',
   async (_, { getState, dispatch }) => {
-    if (getState().profile.loading !== 'pending') return;
+    if (getState().accounts.loading !== 'pending') return;
     try {
       const response = await fetchAccountsRequest(
         getState().authentication.token
