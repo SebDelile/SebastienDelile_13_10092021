@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
 /**
  * the Hero component.
@@ -21,6 +22,19 @@ export const Hero = ({ content }) => {
       </HeroContent>
     </ComponentWrapper>
   );
+};
+
+/**
+ * The propTypes for the Hero component
+ * @memberof Hero
+ */
+Hero.propTypes = {
+  content: propTypes.shape({
+    purpose: propTypes.string.isRequired,
+    backgroundImage: propTypes.string.isRequired,
+    title: propTypes.string.isRequired,
+    text: propTypes.string.isRequired,
+  }).isRequired,
 };
 
 /**

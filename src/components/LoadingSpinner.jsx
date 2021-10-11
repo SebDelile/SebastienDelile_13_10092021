@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 import { keyframes } from '../utils/style/keyframes.js';
 
 /**
@@ -19,6 +20,15 @@ export const LoadingSpinner = ({ color, size }) => (
     </DotWrapper>
   </ComponentWrapper>
 );
+
+/**
+ * The propTypes for the LoadingSpinner component
+ * @memberof LoadingSpinner
+ */
+LoadingSpinner.propTypes = {
+  color: propTypes.string.isRequired,
+  size: propTypes.string.isRequired,
+};
 
 /**
  * Styled-tag div for the LoadingSpinner ComponentWrapper.

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 import { colors } from '../utils/style/colors.js';
 
 /**
@@ -20,6 +21,24 @@ export const CardGroup = ({ content }) => {
       ))}
     </ComponentWrapper>
   );
+};
+
+/**
+ * The propTypes for the Cardgroup component
+ * @memberof CardGroup
+ */
+CardGroup.propTypes = {
+  content: propTypes.shape({
+    purpose: propTypes.string.isRequired,
+    cardArray: propTypes.arrayOf(
+      propTypes.shape({
+        image: propTypes.string.isRequired,
+        alt: propTypes.string.isRequired,
+        title: propTypes.string.isRequired,
+        text: propTypes.string.isRequired,
+      }).isRequired
+    ).isRequired,
+  }).isRequired,
 };
 
 /**

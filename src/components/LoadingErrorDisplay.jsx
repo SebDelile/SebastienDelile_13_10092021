@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import errorLogo from '../assets/error-logo-alt.png';
+import propTypes from 'prop-types';
 
 /**
  * the Loading display error component to be displayed when an error occurs during loading of data.
@@ -17,6 +18,14 @@ export const LoadingErrorDisplay = ({ color }) => {
       </Title>
     </ComponentWrapper>
   );
+};
+
+/**
+ * The propTypes for the LoadingErrorDisplay component
+ * @memberof LoadingErrorDisplay
+ */
+LoadingErrorDisplay.propTypes = {
+  color: propTypes.string.isRequired,
 };
 
 /**
