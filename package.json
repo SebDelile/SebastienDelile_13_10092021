@@ -23,7 +23,8 @@
     "startAPI": "cd ../Project-10-Bank-API-master && npm run dev:server",
     "populateAPI": "cd ../Project-10-Bank-API-master && npm run populate-db",
     "eject": "react-scripts eject",
-    "jsdoc": "./node_modules/.bin/jsdoc src -r -d docs --readme docs/_homepage.md"
+    "jsdoc": "./node_modules/.bin/jsdoc src -r -d docs --readme docs/_homepage.md",
+    "dependencyGraph": "depcruise --include-only \"^src\" --exclude \"^src/__tests__\"  --output-type dot src | dot -T svg > specs/dependencygraph.svg"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "dependency-cruiser": "^10.4.0",
     "jsdoc": "^3.6.7",
     "msw": "^0.35.0",
     "prettier": "^2.4.0",
