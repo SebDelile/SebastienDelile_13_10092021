@@ -9,9 +9,14 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 /**
+ * @namespace Accounts
+ */
+
+/**
  * the Accounts component, wrapper of the Account elements.
  * Contain logic to display either loader, error or content.
- * @namespace Accounts
+ * @memberof Accounts
+ * @function
  * @returns {ReactElement} jsx to be injected in the html
  */
 export const Accounts = () => {

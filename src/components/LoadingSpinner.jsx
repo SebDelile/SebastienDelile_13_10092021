@@ -3,9 +3,14 @@ import propTypes from 'prop-types';
 import { keyframes } from '../utils/style/keyframes.js';
 
 /**
+ * @namespace LoadingSpinner
+ */
+
+/**
  * the LoadingSpinner component.
  * Contain a spinner animation.
- * @namespace LoadingSpinner
+ * @memberof LoadingSpinner
+ * @function
  * @param {string} props.color - the color passed to the component, used as spinner color (ex: '#FFFFFF')
  * @param {string} props.size - the size of the spinner passed to the component (ex: '100%' or '2rem')
  * @returns {ReactElement} jsx to be injected in the html

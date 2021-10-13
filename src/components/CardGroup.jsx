@@ -3,8 +3,13 @@ import propTypes from 'prop-types';
 import { colors } from '../utils/style/colors.js';
 
 /**
- * the CardGroup component, wrapper of the card elements.
  * @namespace CardGroup
+ */
+
+/**
+ * the CardGroup component, wrapper of the card elements.
+ * @memberof CardGroup
+ * @function
  * @returns {ReactElement} jsx to be injected in the html
  */
 export const CardGroup = ({ content }) => {

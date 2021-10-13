@@ -2,9 +2,14 @@ import styled from 'styled-components';
 import propTypes from 'prop-types';
 
 /**
+ * @namespace Hero
+ */
+
+/**
  * the Hero component.
  * Contain a title, text and background image.
- * @namespace Hero
+ * @memberof Hero
+ * @function
  * @param {object} props.content - the content props passed to the component
  * @param {string} props.content.backgroundImage - the image reference to pass as background
  * @param {string} props.content.title - the title of the hero

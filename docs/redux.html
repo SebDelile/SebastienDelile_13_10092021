@@ -37,8 +37,6 @@
     <div class="container-overview">
     
         
-            <div class="description">The Redux store initialization. It is created from redux-toolkit configureStore.</div>
-        
 
         
 
@@ -105,130 +103,6 @@
 
         
             
-<h4 class="name" id=".exports.apiResponseErrorHandler"><span class="type-signature">(static, constant) </span>exports.apiResponseErrorHandler<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    catch the error, if error is code 401, logout the user, else throw an error for the reducer.rejected to handle it.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_redux_apiResponseErrorHandler.js.html">utils/redux/apiResponseErrorHandler.js</a>, <a href="utils_redux_apiResponseErrorHandler.js.html#line9">line 9</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
-<h4 class="name" id=".exports.clearStorages"><span class="type-signature">(static, constant) </span>exports.clearStorages<span class="type-signature"></span></h4>
-
-
-
-
-<div class="description">
-    a function to clear both stores on logout.
-</div>
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line41">line 41</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id=".exports.completedActionHandler"><span class="type-signature">(static, constant) </span>exports.completedActionHandler<span class="type-signature"></span></h4>
 
 
@@ -273,7 +147,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line34">line 34</a>
+        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -291,8 +165,330 @@
 
         
             
-<h4 class="name" id=".exports.loadFromStorage"><span class="type-signature">(static, constant) </span>exports.loadFromStorage<span class="type-signature"></span></h4>
+<h4 class="name" id=".exports.store"><span class="type-signature">(static, constant) </span>exports.store<span class="type-signature"></span></h4>
 
+
+
+
+<div class="description">
+    The Redux store initialization. It is created from redux-toolkit configureStore.
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="app_store.js.html">app/store.js</a>, <a href="app_store.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".exports.apiResponseErrorHandler"><span class="type-signature">(static) </span>exports.apiResponseErrorHandler<span class="signature">(error, dispatch)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    catch the error, if error is code 401, logout the user, else throw an error for the reducer.rejected to handle it.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>error</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the error object from the api</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dispatch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the dispatch function from useDispatch</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_redux_apiResponseErrorHandler.js.html">utils/redux/apiResponseErrorHandler.js</a>, <a href="utils_redux_apiResponseErrorHandler.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".exports.clearStorages"><span class="type-signature">(static) </span>exports.clearStorages<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    a function to clear both stores on logout.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line44">line 44</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id=".exports.loadFromStorage"><span class="type-signature">(static) </span>exports.loadFromStorage<span class="signature">()</span><span class="type-signature"> &rarr; {object|undefined}</span></h4>
+    
+
+    
 
 
 
@@ -306,6 +502,12 @@
 
 
 
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -335,7 +537,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line26">line 26</a>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line28">line 28</a>
     </li></ul></dd>
     
 
@@ -351,10 +553,55 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - the stored state if any
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".exports.pendingActionHandler"><span class="type-signature">(static, constant) </span>exports.pendingActionHandler<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".exports.pendingActionHandler"><span class="type-signature">(static) </span>exports.pendingActionHandler<span class="signature">(name)</span><span class="type-signature"> &rarr; {array}</span></h4>
+    
+
+    
 
 
 
@@ -368,6 +615,61 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the slice's name</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -397,7 +699,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line22">line 22</a>
+        <a href="utils_redux_statusActionHandlers.js.html">utils/redux/statusActionHandlers.js</a>, <a href="utils_redux_statusActionHandlers.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -413,10 +715,52 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    the matcher test function and the matcher callback
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
         
             
-<h4 class="name" id=".exports.saveToStorage"><span class="type-signature">(static, constant) </span>exports.saveToStorage<span class="type-signature"></span></h4>
 
+    
+
+    
+    <h4 class="name" id=".exports.saveToStorage"><span class="type-signature">(static) </span>exports.saveToStorage<span class="signature">(storeAPI)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    
+
+    
 
 
 
@@ -430,6 +774,61 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>storeAPI</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the redux store</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
 <dl class="details">
 
     
@@ -459,7 +858,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line8">line 8</a>
+        <a href="utils_services_storageManagement.js.html">utils/services/storageManagement.js</a>, <a href="utils_services_storageManagement.js.html#line9">line 9</a>
     </li></ul></dd>
     
 
@@ -475,9 +874,43 @@
 
 
 
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
         
+<div class="param-desc">
+    - the store after update corresponding to the action
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">object</span>
+
+
+    </dd>
+</dl>
+
     
 
+
+
+
+
+        
     
 
     
@@ -499,7 +932,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 06 2021 19:20:59 GMT+0200 (heure d’été d’Europe centrale)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 13 2021 09:49:53 GMT+0200 (heure d’été d’Europe centrale)
 </footer>
 
 <script> prettyPrint(); </script>

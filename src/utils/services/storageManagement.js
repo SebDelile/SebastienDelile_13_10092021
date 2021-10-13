@@ -2,6 +2,7 @@
  * the middleware to store any change of the store in sessionStorage/localStorage.
  * add a timestamp before saving.
  * @memberof redux
+ * @function
  * @param {object} storeAPI - the redux store
  * @returns {object} - the store after update corresponding to the action
  */
@@ -21,6 +22,7 @@ export const saveToStorage = (storeAPI) => (next) => (action) => {
  * timestamp is removed before loading as redux state.
  * return undefined if no stored state (so initial state of the slices are loaded).
  * @memberof redux
+ * @function
  * @returns {object|undefined} - the stored state if any
  */
 export const loadFromStorage = () => {
@@ -37,6 +39,7 @@ export const loadFromStorage = () => {
 /**
  * a function to clear both stores on logout.
  * @memberof redux
+ * @function
  */
 export const clearStorages = () => {
   sessionStorage.clear();

@@ -3,9 +3,14 @@ import errorLogo from '../assets/error-logo-alt.png';
 import propTypes from 'prop-types';
 
 /**
+ * @namespace LoadingErrorDisplay
+ */
+
+/**
  * the Loading display error component to be displayed when an error occurs during loading of data.
  * Contain a image and text, color is from the props.
- * @namespace LoadingErrorDisplay
+ * @memberof LoadingErrorDisplay
+ * @function
  * @param {string} props.color - the color passed to the component and used as font color (ex: '#FFFFFF')
  * @returns {ReactElement} jsx to be injected in the html
  */

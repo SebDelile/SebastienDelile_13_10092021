@@ -12,10 +12,15 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 /**
+ * @namespace ProfileHeader
+ */
+
+/**
  * the ProfileHeader component.
  * Contain logic to fetch the profile info on mounting and to update the profile info.
  * Contain logic to display either loader, error or content.
- * @namespace ProfileHeader
+ * @memberof ProfileHeader
+ * @function
  * @returns {ReactElement} jsx to be injected in the html
  */
 export const ProfileHeader = () => {

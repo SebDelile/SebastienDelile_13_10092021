@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 
 /**
- * the Footer component
  * @namespace Footer
+ */
+
+/**
+ * the Footer component
+ * @memberof Footer
+ * @function
  * @returns {ReactElement} jsx to be injected in the html.
  */
 export const Footer = () => (

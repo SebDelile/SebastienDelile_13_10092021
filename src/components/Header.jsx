@@ -7,9 +7,14 @@ import { selectFirstName } from '../features/profile';
 import { logout, selectIsAuthenticated } from '../features/authentication';
 
 /**
+ * @namespace Header
+ */
+
+/**
  * the Header component
  * Contain logic to display either user's name and signout button, or signin button.
- * @namespace Header
+ * @memberof Header
+ * @function
  * @returns {ReactElement} jsx to be injected in the html
  */
 export const Header = () => {

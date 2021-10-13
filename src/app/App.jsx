@@ -8,8 +8,13 @@ import { ProfilePage } from '../pages/ProfilePage.jsx';
 import { ErrorPage } from '../pages/ErrorPage.jsx';
 
 /**
- * The main component. It contains the router.
  * @namespace App
+ */
+
+/**
+ * The main component. It contains the router.
+ * @memberof App
+ * @function
  * @return {ReactElement} jsx to be injected in the html
  */
 export const App = () => (

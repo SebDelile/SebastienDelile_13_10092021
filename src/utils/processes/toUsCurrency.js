@@ -1,6 +1,7 @@
 /**
  * convert number into a usd amount (example : 26561.54 => $26,561.54).
  * @memberof utils
+ * @function
  * @param {number} amount - the number to convert
  * @returns {string} - the formated number as usd amount
  */

@@ -8,8 +8,12 @@ import {
 } from '../utils/services/storageManagement.js';
 
 /**
- * The Redux store initialization. It is created from redux-toolkit configureStore.
  * @namespace redux
+ */
+
+/**
+ * The Redux store initialization. It is created from redux-toolkit configureStore.
+ * @memberof redux
  */
 export const store = configureStore({
   reducer: {

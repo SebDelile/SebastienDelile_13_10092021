@@ -16,6 +16,7 @@ const completedActionCallback = (state, action) => {
  * function that return both functions to test if the action is pending and the corresponding callback.
  * * used to manage the state.loading of the slice and clean the state.error on each request.
  * @memberof redux
+ * @function
  * @param {string} name - the slice's name
  * @returns {array} the matcher test function and the matcher callback
  */
