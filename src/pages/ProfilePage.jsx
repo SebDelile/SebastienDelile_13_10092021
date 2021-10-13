@@ -6,6 +6,12 @@ import { Accounts } from '../components/Accounts.jsx';
 import { useSelector } from 'react-redux';
 import { selectIsAuthenticated } from '../features/authentication.js';
 
+/**
+ * The profilePage : include a profileheader and a Accounts components.
+ * Contain logic to redirect to loginPage if not connected.
+ * @namespace ProfilePage
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const ProfilePage = () => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
@@ -21,7 +27,7 @@ export const ProfilePage = () => {
 };
 
 /**
- * Styled-tag main for the Profile page ComponentWrapper
+ * Styled-tag main for the Profile page ComponentWrapper.
  * @memberof ProfilePage
  */
 const ComponentWrapper = styled.main`

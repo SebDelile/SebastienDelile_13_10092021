@@ -11,37 +11,77 @@ import {
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
+/**
+ * @namespace ProfileHeader
+ */
+
+/**
+ * the ProfileHeader component.
+ * Contain logic to fetch the profile info on mounting and to update the profile info.
+ * Contain logic to display either loader, error or content.
+ * @memberof ProfileHeader
+ * @function
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const ProfileHeader = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [inputingName, setInputingName] = useState({
     firstName: '',
     lastName: '',
   });
-
   const dispatch = useDispatch();
   const { firstName, lastName, loading, error } = useSelector(selectProfile);
 
+  /**
+   * Launch a fetch action on mounting to load profile info.
+   * @function UseEffect
+   * @memberof ProfileHeader
+   */
   useEffect(() => dispatch(fetchProfileInfo()), [dispatch]);
+
+  /**
+   * Close the editing form on each change of firstName or lastName.
+   * @function useEffect
+   * @memberof ProfileHeader
+   */
   useEffect(() => setIsEditing(false), [firstName, lastName]);
 
+  /**
+   * Open the form to edit the name.
+   * @memberof ProfileHeader
+   */
   const handleEditName = () => {
     setInputingName({ firstName: '', lastName: '' });
     setIsEditing(true);
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
+  /**
+   * handle each change in the input fields by updating the local state with the new value.
+   * @param {object} event - the event object
+   * @memberof ProfileHeader
+   */
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
     setInputingName((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const handleSaveName = (e) => {
-    e.preventDefault();
+  /**
+   * handle the launch of the action to update the name in the db.
+   * @param {object} event - the event object
+   * @memberof ProfileHeader
+   */
+  const handleSaveName = (event) => {
+    event.preventDefault();
     dispatch(updateProfileInfo(inputingName));
   };
 
+  /**
+   * close the editing form.
+   * @memberof ProfileHeader
+   */
   const handleCancelEditName = () => {
     setIsEditing(false);
   };
@@ -57,16 +97,24 @@ export const ProfileHeader = () => {
         <>
           {isEditing ? (
             <EditingNameWrapper>
+              <label className="sr-only" htmlFor="firstName">
+                Firstname
+              </label>
               <InputName
                 type="text"
                 name="firstName"
+                id="firstName"
                 placeholder={firstName}
                 value={inputingName.firstName}
                 onChange={handleInputChange}
               />
+              <label className="sr-only" htmlFor="lastName">
+                Lastname
+              </label>
               <InputName
                 type="text"
                 name="lastName"
+                id="lastName"
                 placeholder={lastName}
                 value={inputingName.lastName}
                 onChange={handleInputChange}
@@ -100,7 +148,7 @@ export const ProfileHeader = () => {
 };
 
 /**
- * Styled-tag section for the ProfileHeader ComponentWrapper
+ * Styled-tag section for the ProfileHeader ComponentWrapper.
  * @memberof ProfileHeader
  */
 const ComponentWrapper = styled.section`
@@ -114,7 +162,7 @@ const ComponentWrapper = styled.section`
 `;
 
 /**
- * Styled-tag h2 for the ProfileHeader greetings
+ * Styled-tag h2 for the ProfileHeader greetings.
  * @memberof ProfileHeader
  */
 const Greetings = styled.h2`
@@ -123,7 +171,7 @@ const Greetings = styled.h2`
 `;
 
 /**
- * Styled-tag div for the ProfileHeader Wrapper when displaying name
+ * Styled-tag div for the ProfileHeader Wrapper when displaying name.
  * @memberof ProfileHeader
  */
 const DisplayedNameWrapper = styled.div`
@@ -135,7 +183,7 @@ const DisplayedNameWrapper = styled.div`
 `;
 
 /**
- * Styled-tag form for the ProfileHeader Wrapper when editing name
+ * Styled-tag form for the ProfileHeader Wrapper when editing name.
  * @memberof ProfileHeader
  */
 const EditingNameWrapper = styled.form`
@@ -146,7 +194,7 @@ const EditingNameWrapper = styled.form`
 `;
 
 /**
- * Styled-tag input for the ProfileHeader first and last name edition
+ * Styled-tag input for the ProfileHeader first and last name edition.
  * @memberof ProfileHeader
  */
 const InputName = styled.input`
@@ -163,7 +211,7 @@ const InputName = styled.input`
 `;
 
 /**
- * Styled-tag button for the ProfileHeader edit name buttons
+ * Styled-tag button for the ProfileHeader edit name buttons.
  * @memberof ProfileHeader
  */
 const EditNameButton = styled.button`
@@ -188,7 +236,7 @@ const EditNameButton = styled.button`
 `;
 
 /**
- * Styled-tag p for the ProfileHeader edit name error
+ * Styled-tag p for the ProfileHeader edit name error.
  * @memberof ProfileHeader
  */
 const EditNameErrorMessage = styled.p`

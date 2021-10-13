@@ -1,5 +1,9 @@
 import { colors } from './colors.js';
 
+/**
+ * the style for the main button.
+ * @memberof style
+ */
 export const mainButtonStyle = `
   padding: 0.5rem;
   font-size: 1.1rem;

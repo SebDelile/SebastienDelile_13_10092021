@@ -7,10 +7,22 @@ import {
   completedActionHandler,
   pendingActionHandler,
 } from '../utils/redux/statusActionHandlers.js';
-import { unauthorizedErrorHandler } from '../utils/redux/unauthorizedErrorHandler.js';
+import { apiResponseErrorHandler } from '../utils/redux/apiResponseErrorHandler.js';
 
-// init
+/**
+ * @namespace reduxFeature_profile
+ */
+
+/**
+ * name of the feature.
+ * @memberof reduxFeature_profile
+ */
 const sliceName = 'profile';
+
+/**
+ * initial state of the feature.
+ * @memberof reduxFeature_profile
+ */
 const initialState = {
   firstName: '',
   lastName: '',
@@ -18,7 +30,13 @@ const initialState = {
   error: '',
 };
 
-// Thunk functions
+/**
+ * thunk to make async call to API and fetch the profile info.
+ * @function fetchProfileInfo
+ * @async
+ * @memberof reduxFeature_profile
+ * @return {object} - the API response (containing the profile info on success)
+ */
 export const fetchProfileInfo = createAsyncThunk(
   sliceName + '/fetchProfileInfo',
   async (_, { getState, dispatch }) => {
@@ -29,11 +47,18 @@ export const fetchProfileInfo = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      unauthorizedErrorHandler(error, dispatch);
+      apiResponseErrorHandler(error, dispatch);
     }
   }
 );
 
+/**
+ * thunk to make async call to API and update the profile info.
+ * @function updateProfileInfo
+ * @async
+ * @memberof reduxFeature_profile
+ * @return {object} - the API response (containing the profile info on success)
+ */
 export const updateProfileInfo = createAsyncThunk(
   sliceName + '/updateProfileInfo',
   async (name, { getState, dispatch }) => {
@@ -45,12 +70,15 @@ export const updateProfileInfo = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      unauthorizedErrorHandler(error, dispatch);
+      apiResponseErrorHandler(error, dispatch);
     }
   }
 );
 
-// slice
+/**
+ * the slice of the feature, implemented with the readux-toolkit createSlice.
+ * @memberof reduxFeature_profile
+ */
 const profileSlice = createSlice({
   name: sliceName,
   initialState,
@@ -89,8 +117,33 @@ const profileSlice = createSlice({
   },
 });
 
-// export actions, selectors and the reducer
+/**
+ * Action objects to be called to trigger the reducer.
+ * @const {object} sliceActions
+ * @property {object} resetProfile - action to reset the profile state
+ * @memberof reduxFeature_profile
+ */
 export const { resetProfile } = profileSlice.actions;
+
+/**
+ * select the profile properties in the redux state.
+ * @function selectProfile
+ * @memberof reduxFeature_profile
+ * @returns {object} - profile state value
+ */
 export const selectProfile = (state) => state.profile;
+
+/**
+ * select the firstname properties in the redux profile state.
+ * @function selectFirstName
+ * @memberof reduxFeature_profile
+ * @returns {string} - firstName value
+ */
 export const selectFirstName = (state) => state.profile.firstName;
+
+/**
+ * the slice reducer to be imported in the store.
+ * @const {object} sliceReducer
+ * @memberof reduxFeature_profile
+ */
 export default profileSlice.reducer;

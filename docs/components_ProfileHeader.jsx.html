@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: components/ProfileHeader.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: components/ProfileHeader.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { LoadingErrorDisplay } from './LoadingErrorDisplay.jsx';
+import { LoadingSpinner } from '../components/LoadingSpinner.jsx';
+import { mainButtonStyle } from '../utils/style/mainButtonStyle.js';
+import {
+  fetchProfileInfo,
+  selectProfile,
+  updateProfileInfo,
+} from '../features/profile.js';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+/**
+ * @namespace ProfileHeader
+ */
+
+/**
+ * the ProfileHeader component.
+ * Contain logic to fetch the profile info on mounting and to update the profile info.
+ * Contain logic to display either loader, error or content.
+ * @memberof ProfileHeader
+ * @function
+ * @returns {ReactElement} jsx to be injected in the html
+ */
+export const ProfileHeader = () => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputingName, setInputingName] = useState({
+    firstName: '',
+    lastName: '',
+  });
+  const dispatch = useDispatch();
+  const { firstName, lastName, loading, error } = useSelector(selectProfile);
+
+  /**
+   * Launch a fetch action on mounting to load profile info.
+   * @function UseEffect
+   * @memberof ProfileHeader
+   */
+  useEffect(() => dispatch(fetchProfileInfo()), [dispatch]);
+
+  /**
+   * Close the editing form on each change of firstName or lastName.
+   * @function useEffect
+   * @memberof ProfileHeader
+   */
+  useEffect(() => setIsEditing(false), [firstName, lastName]);
+
+  /**
+   * Open the form to edit the name.
+   * @memberof ProfileHeader
+   */
+  const handleEditName = () => {
+    setInputingName({ firstName: '', lastName: '' });
+    setIsEditing(true);
+  };
+
+  /**
+   * handle each change in the input fields by updating the local state with the new value.
+   * @param {object} event - the event object
+   * @memberof ProfileHeader
+   */
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setInputingName((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  /**
+   * handle the launch of the action to update the name in the db.
+   * @param {object} event - the event object
+   * @memberof ProfileHeader
+   */
+  const handleSaveName = (event) => {
+    event.preventDefault();
+    dispatch(updateProfileInfo(inputingName));
+  };
+
+  /**
+   * close the editing form.
+   * @memberof ProfileHeader
+   */
+  const handleCancelEditName = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    &lt;ComponentWrapper>
+      &lt;Greetings>Welcome back&lt;/Greetings>
+      {loading === 'pending' ? (
+        &lt;LoadingSpinner color="white" size="50px" />
+      ) : error === 'fetching error' ? (
+        &lt;LoadingErrorDisplay color="white" />
+      ) : (
+        &lt;>
+          {isEditing ? (
+            &lt;EditingNameWrapper>
+              &lt;label className="sr-only" htmlFor="firstName">
+                Firstname
+              &lt;/label>
+              &lt;InputName
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder={firstName}
+                value={inputingName.firstName}
+                onChange={handleInputChange}
+              />
+              &lt;label className="sr-only" htmlFor="lastName">
+                Lastname
+              &lt;/label>
+              &lt;InputName
+                type="text"
+                name="lastName"
+                id="lastName"
+                placeholder={lastName}
+                value={inputingName.lastName}
+                onChange={handleInputChange}
+              />
+              &lt;EditNameButton type="submit" onClick={handleSaveName}>
+                Save
+              &lt;/EditNameButton>
+              &lt;EditNameButton type="button" onClick={handleCancelEditName}>
+                Cancel
+              &lt;/EditNameButton>
+              {error === 'updating error' ? (
+                &lt;EditNameErrorMessage>
+                  Updating has failed, please try again later.
+                &lt;/EditNameErrorMessage>
+              ) : null}
+            &lt;/EditingNameWrapper>
+          ) : (
+            &lt;DisplayedNameWrapper>
+              &lt;Greetings>
+                {firstName} {lastName}
+              &lt;/Greetings>
+              &lt;EditNameButton type="button" onClick={handleEditName}>
+                Edit
+              &lt;/EditNameButton>
+            &lt;/DisplayedNameWrapper>
+          )}
+        &lt;/>
+      )}
+    &lt;/ComponentWrapper>
+  );
+};
+
+/**
+ * Styled-tag section for the ProfileHeader ComponentWrapper.
+ * @memberof ProfileHeader
+ */
+const ComponentWrapper = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  margin-top: 1.5rem;
+`;
+
+/**
+ * Styled-tag h2 for the ProfileHeader greetings.
+ * @memberof ProfileHeader
+ */
+const Greetings = styled.h2`
+  color: white;
+  font-size: 2rem;
+`;
+
+/**
+ * Styled-tag div for the ProfileHeader Wrapper when displaying name.
+ * @memberof ProfileHeader
+ */
+const DisplayedNameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+/**
+ * Styled-tag form for the ProfileHeader Wrapper when editing name.
+ * @memberof ProfileHeader
+ */
+const EditingNameWrapper = styled.form`
+  display: grid;
+  gap: 0.5rem 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 1.5rem;
+`;
+
+/**
+ * Styled-tag input for the ProfileHeader first and last name edition.
+ * @memberof ProfileHeader
+ */
+const InputName = styled.input`
+  background: white;
+  padding: 0.25rem;
+  font-size: 1.2rem;
+  grid-column: span 2;
+  width: 100%;
+
+  @media only screen and (min-width: 45rem) {
+    grid-column: span 1;
+    width: 17.5rem;
+  }
+`;
+
+/**
+ * Styled-tag button for the ProfileHeader edit name buttons.
+ * @memberof ProfileHeader
+ */
+const EditNameButton = styled.button`
+  ${mainButtonStyle}
+
+  font-size: 1rem;
+  font-weight: 400;
+  width: 10rem;
+  margin-top: 0;
+
+  @media only screen and (min-width: 45rem) {
+    width: 8rem;
+
+    &amp;:nth-of-type(2n + 1) {
+      justify-self: right;
+    }
+
+    &amp;:nth-of-type(2n) {
+      justify-self: left;
+    }
+  }
+`;
+
+/**
+ * Styled-tag p for the ProfileHeader edit name error.
+ * @memberof ProfileHeader
+ */
+const EditNameErrorMessage = styled.p`
+  font-size: 1rem;
+  color: red;
+  grid-column: span 2;
+  justify-self: center;
+`;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="-_index.html">_index</a></li><li><a href="Accounts.html">Accounts</a></li><li><a href="apiRequest.html">apiRequest</a></li><li><a href="App.html">App</a></li><li><a href="CardGroup.html">CardGroup</a></li><li><a href="ErrorPage.html">ErrorPage</a></li><li><a href="Footer.html">Footer</a></li><li><a href="Header.html">Header</a></li><li><a href="Hero.html">Hero</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadingErrorDisplay.html">LoadingErrorDisplay</a></li><li><a href="LoadingSpinner.html">LoadingSpinner</a></li><li><a href="LoginPage.html">LoginPage</a></li><li><a href="ProfileHeader.html">ProfileHeader</a></li><li><a href="ProfilePage.html">ProfilePage</a></li><li><a href="redux.html">redux</a></li><li><a href="reduxFeature_accounts.html">reduxFeature_accounts</a></li><li><a href="reduxFeature_authentication.html">reduxFeature_authentication</a></li><li><a href="reduxFeature_profile.html">reduxFeature_profile</a></li><li><a href="style.html">style</a></li><li><a href="utils.html">utils</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Wed Oct 13 2021 09:49:53 GMT+0200 (heure d’été d’Europe centrale)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

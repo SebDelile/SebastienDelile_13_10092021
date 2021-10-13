@@ -6,6 +6,11 @@ import iconChat from '../assets/icon-chat.png';
 import iconMoney from '../assets/icon-money.png';
 import iconSecurity from '../assets/icon-security.png';
 
+/**
+ * the home page: include hero and cardGroups static elements.
+ * @namespace HomePage
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const HomePage = () => (
   <ComponentWrapper>
     <h1 className="sr-only">home page of Argent Bank web application</h1>
@@ -15,7 +20,7 @@ export const HomePage = () => (
 );
 
 /**
- * Content to fill the hero
+ * Content to fill the hero.
  * @memberof HomePage
  */
 const HERO_CONTENT = {
@@ -26,7 +31,7 @@ const HERO_CONTENT = {
 };
 
 /**
- * Content to fill the cards
+ * Content to fill the cards.
  * @memberof HomePage
  */
 const CARDS_CONTENT = {
@@ -54,7 +59,7 @@ const CARDS_CONTENT = {
 };
 
 /**
- * Styled-tag main for the home page ComponentWrapper
+ * Styled-tag main for the home page ComponentWrapper.
  * @memberof HomePage
  */
 const ComponentWrapper = styled.main`

@@ -1,3 +1,7 @@
+/**
+ * the color of the design.
+ * @memberof style
+ */
 export const colors = {
   primary: '#00bc77',
   secondary: '#12002b',

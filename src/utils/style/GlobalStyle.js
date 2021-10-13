@@ -1,6 +1,11 @@
 import { createGlobalStyle } from 'styled-components';
 import { colors } from './colors.js';
 
+/**
+ * the global style imported in index.js.
+ * contain font, CSS reset and screen reader class.
+ * @memberof style
+ */
 export const GlobalStyle = createGlobalStyle`
 /* --------------------------------------------------
 ----------------------- Fonts -----------------------

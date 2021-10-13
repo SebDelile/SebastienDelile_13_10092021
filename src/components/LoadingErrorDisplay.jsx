@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import errorLogo from '../assets/error-logo-alt.png';
+import propTypes from 'prop-types';
 
+/**
+ * @namespace LoadingErrorDisplay
+ */
+
+/**
+ * the Loading display error component to be displayed when an error occurs during loading of data.
+ * Contain a image and text, color is from the props.
+ * @memberof LoadingErrorDisplay
+ * @function
+ * @param {string} props.color - the color passed to the component and used as font color (ex: '#FFFFFF')
+ * @returns {ReactElement} jsx to be injected in the html
+ */
 export const LoadingErrorDisplay = ({ color }) => {
   return (
     <ComponentWrapper>
@@ -13,7 +26,15 @@ export const LoadingErrorDisplay = ({ color }) => {
 };
 
 /**
- * The style for the ComponentWrapper part of the LoadingErrorDisplay component
+ * The propTypes for the LoadingErrorDisplay component
+ * @memberof LoadingErrorDisplay
+ */
+LoadingErrorDisplay.propTypes = {
+  color: propTypes.string.isRequired,
+};
+
+/**
+ * The style for the ComponentWrapper part of the LoadingErrorDisplay component.
  * @memberof LoadingErrorDisplay
  */
 const ComponentWrapper = styled.div`
@@ -25,7 +46,7 @@ const ComponentWrapper = styled.div`
 `;
 
 /**
- * The style for the Title part of the LoadingErrorDisplay component
+ * The style for the Title part of the LoadingErrorDisplay component.
  * @memberof LoadingErrorDisplay
  */
 const Title = styled.h3`
@@ -37,7 +58,7 @@ const Title = styled.h3`
 `;
 
 /**
- * Styled-tag img for the banner image of the LoadingErrorDisplay component
+ * Styled-tag img for the banner image of the LoadingErrorDisplay component.
  * @memberof LoadingErrorDisplay
  */
 const Image = styled.img`

@@ -7,6 +7,16 @@ import { LoginPage } from '../pages/LoginPage.jsx';
 import { ProfilePage } from '../pages/ProfilePage.jsx';
 import { ErrorPage } from '../pages/ErrorPage.jsx';
 
+/**
+ * @namespace App
+ */
+
+/**
+ * The main component. It contains the router.
+ * @memberof App
+ * @function
+ * @return {ReactElement} jsx to be injected in the html
+ */
 export const App = () => (
   <ComponentWrapper>
     <BrowserRouter>
@@ -32,7 +42,7 @@ export const App = () => (
 
 /**
  * Styled-tag ComponentWrapper for the App.
- * Contains rules for the flex organization of children : all are 100% wide and only main content is flex 1 (not header nor footer)
+ * Contains rules for the flex organization of children : all are 100% wide and only main content is flex 1 (not header nor footer).
  * @memberof App
  */
 const ComponentWrapper = styled.div`
