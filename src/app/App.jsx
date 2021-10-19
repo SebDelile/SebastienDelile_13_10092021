@@ -1,4 +1,5 @@
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { PrivateRoute } from '../utils/services/PrivateRoute.jsx';
 import styled from 'styled-components';
 import { Header } from '../components/Header.jsx';
 import { Footer } from '../components/Footer.jsx';
@@ -25,12 +26,12 @@ export const App = () => (
         <Route exact path="/">
           <HomePage />
         </Route>
-        <Route exact path="/login">
+        <Route path="/login">
           <LoginPage />
         </Route>
-        <Route exact path="/profile">
+        <PrivateRoute path="/profile">
           <ProfilePage />
-        </Route>
+        </PrivateRoute>
         <Route>
           <ErrorPage />
         </Route>
