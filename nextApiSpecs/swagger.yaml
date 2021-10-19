@@ -9,7 +9,7 @@ basePath: /api/v1
 schemes:
   - http
 paths:
-  /user/transactions/all:
+  /user/transactions/all/{dateRange}:
     get:
       tags:
         - Transactions
@@ -19,6 +19,11 @@ paths:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
+          type: string
+          required: true
+        - in: path
+          name: dateRange
+          description: range of the dates from when to when the transaction should be returned
           type: string
           required: true
       produces:
