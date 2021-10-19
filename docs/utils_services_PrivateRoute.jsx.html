@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app/App.jsx</title>
+    <title>JSDoc: Source: utils/services/PrivateRoute.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: app/App.jsx</h1>
+    <h1 class="page-title">Source: utils/services/PrivateRoute.jsx</h1>
 
     
 
@@ -26,70 +26,26 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import { Route, Switch, BrowserRouter } from 'react-router-dom';
-import { PrivateRoute } from '../utils/services/PrivateRoute.jsx';
-import styled from 'styled-components';
-import { Header } from '../components/Header.jsx';
-import { Footer } from '../components/Footer.jsx';
-import { HomePage } from '../pages/HomePage.jsx';
-import { LoginPage } from '../pages/LoginPage.jsx';
-import { ProfilePage } from '../pages/ProfilePage.jsx';
-import { ErrorPage } from '../pages/ErrorPage.jsx';
+            <pre class="prettyprint source linenums"><code>import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectIsAuthenticated } from '../../features/authentication';
 
 /**
- * @namespace App
- */
-
-/**
- * The main component. It contains the router.
- * @memberof App
+ * a util to turn a route to a private route : check authentication, allow rendering children if authenticated, or redirect to the login page if not
+ * @memberof utils
  * @function
- * @return {ReactElement} jsx to be injected in the html
+ * @param {object} param0 - all props of a normal route, including the children
+ * @returns {ReactElement} a route with the children if authenticated or a redirect to LoginPage otherwise
  */
-export const App = () => (
-  &lt;ComponentWrapper>
-    &lt;BrowserRouter>
-      &lt;Header />
-      &lt;Switch>
-        &lt;Route exact path="/">
-          &lt;HomePage />
-        &lt;/Route>
-        &lt;Route path="/login">
-          &lt;LoginPage />
-        &lt;/Route>
-        &lt;PrivateRoute path="/profile">
-          &lt;ProfilePage />
-        &lt;/PrivateRoute>
-        &lt;Route>
-          &lt;ErrorPage />
-        &lt;/Route>
-      &lt;/Switch>
-      &lt;Footer />
-    &lt;/BrowserRouter>
-  &lt;/ComponentWrapper>
-);
-
-/**
- * Styled-tag ComponentWrapper for the App.
- * Contains rules for the flex organization of children : all are 100% wide and only main content is flex 1 (not header nor footer).
- * @memberof App
- */
-const ComponentWrapper = styled.div`
-  width: 100%;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-
-  &amp; > * {
-    width: 100%;
-  }
-
-  &amp; > main {
-    flex: 1;
-  }
-`;
+export const PrivateRoute = ({ children, ...rest }) => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  return (
+    &lt;Route
+      {...rest}
+      render={() => (isAuthenticated ? children : &lt;Redirect to="/login" />)}
+    />
+  );
+};
 </code></pre>
         </article>
     </section>
